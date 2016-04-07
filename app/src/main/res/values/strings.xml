@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notes19_2</string>
+    <string name="recognizedTextHint">here will be text</string>
+    <string name="startButtonName">get text</string>
+</resources>
