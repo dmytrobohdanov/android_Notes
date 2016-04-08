@@ -13,20 +13,24 @@ import android.widget.TextView;
 
 import com.dmytro.notes19_2.R;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
-
+    String noteText= "ping, i'm going to ";
     SpeechRecognizer sr;
 
     //array of recognized text
-    List<String> recognizedText;
+    List<String> recognizedText = new LinkedList<>();
 
     //some float array
-//    float
+//  TODO: find out what the hell is this array is about :-)
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("CREATION", " creating");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button makeNewNote = (Button) findViewById(R.id.startButton);
@@ -36,8 +40,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.d("on action down", " down");
                     start();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.d("on action Up", " up");
                     stop();
                 }
                 return false;
@@ -48,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     //onClick method of the id.startButton
     //starting voice recognition
     private void start() {
+        TextView tv = (TextView) findViewById(R.id.recognizedText);
+        assert tv != null;
+        tv.setText(noteText);
+
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 //        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "ru-RU");
@@ -62,15 +72,30 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     //set to TextView id.recognizedText recognized text
     private void stop() {
         sr.stopListening();
-        TextView tv = (TextView) findViewById(R.id.recognizedText);
-        assert tv != null;
+        String resultString = "debug ";
+//        if(recognizedText == null){
+////           recognizedText.add("Something wrong. I have no text");
+//            Log.d("Null pointer fixing", "shit");
+//            //return;
+//        }
 
-        String resultString = "";
+//        ArrayList <String> strings = new ArrayList<>(recognizedText);
+//        for(String str: strings){
+//            Log.d("array ", str);
+//            resultString = resultString + "\n" + str;
+//        }
         for(String str: recognizedText){
+            Log.d("array ", "ping");
+            Log.d("array ", resultString);
             resultString = resultString + "\n" + str;
         }
-        
-        tv.setText(resultString);
+        TextView tv = (TextView) findViewById(R.id.recognizedText);
+        assert tv != null;
+        noteText = noteText + resultString;
+        Log.d("stop", " finishing forming string");
+        Log.d("stop", " The string is " + resultString);
+
+        tv.setText(noteText);
     }
 
 
@@ -80,8 +105,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         // SpeechRecognizer requires EXTRA_CALLING_PACKAGE, so add if it's not here
         if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE))
         {
-            recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                    "com.dummy");
+//            recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.dummy");
+            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "ru-RU");
+            //maybe try sometime:
+            //intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
         }
 
         SpeechRecognizer recognizer = getSpeechRecognizer();
