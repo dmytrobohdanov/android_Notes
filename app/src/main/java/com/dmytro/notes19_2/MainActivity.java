@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
     String noteText= "";
     SpeechRecognizer sr;
+
 
     //array of recognized text
     List<String> recognizedText = new LinkedList<>();
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     //onClick method of the id.startButton
     //starting voice recognition
     private void start() {
-        TextView tv = (TextView) findViewById(R.id.note1);
+        TextView tv = (TextView) findViewById(R.id.note1_text);
         assert tv != null;
         tv.setText(noteText);
 
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onResults(Bundle results) {
         receiveResults(results);
-        TextView tv = (TextView) findViewById(R.id.note1);
+        TextView tv = (TextView) findViewById(R.id.note1_text);
         assert tv != null;
         noteText = noteText + recognizedText.get(0);
         tv.setText(noteText);
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onPartialResults(Bundle partialResults) {
         receiveResults(partialResults);
-        TextView tv = (TextView) findViewById(R.id.note1);
+        TextView tv = (TextView) findViewById(R.id.note1_text);
         assert tv != null;
         noteText = noteText + recognizedText.get(0);
         tv.setText(noteText);
@@ -178,4 +181,13 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     public void onEvent(int eventType, Bundle params) {
 
     }
+
+    //onClick on text 1
+    public void editNote(View view) {
+        ViewSwitcher switcher = (ViewSwitcher) findViewById(R.id.note1);
+        switcher.showNext(); //or switcher.showPrevious();
+        EditText myET = (EditText) switcher.findViewById(R.id.note1_edit);
+        myET.setText(noteText);
+    }
+
 }
