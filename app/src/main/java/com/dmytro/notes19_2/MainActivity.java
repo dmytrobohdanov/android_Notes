@@ -11,22 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dmytro.notes19_2.R;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
-    String noteText= "ping, i'm going to ";
+    String noteText= "";
     SpeechRecognizer sr;
 
     //array of recognized text
     List<String> recognizedText = new LinkedList<>();
-
-    //some float array
-//  TODO: find out what the hell is this array is about :-)
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     //onClick method of the id.startButton
     //starting voice recognition
     private void start() {
-        TextView tv = (TextView) findViewById(R.id.recognizedText);
+        TextView tv = (TextView) findViewById(R.id.note1);
         assert tv != null;
         tv.setText(noteText);
 
@@ -72,30 +65,15 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     //set to TextView id.recognizedText recognized text
     private void stop() {
         sr.stopListening();
-        String resultString = "debug ";
-//        if(recognizedText == null){
-////           recognizedText.add("Something wrong. I have no text");
-//            Log.d("Null pointer fixing", "shit");
-//            //return;
-//        }
-
-//        ArrayList <String> strings = new ArrayList<>(recognizedText);
-//        for(String str: strings){
-//            Log.d("array ", str);
+//        String resultString = "";
+//
+//        for(String str: recognizedText){
 //            resultString = resultString + "\n" + str;
 //        }
-        for(String str: recognizedText){
-            Log.d("array ", "ping");
-            Log.d("array ", resultString);
-            resultString = resultString + "\n" + str;
-        }
-        TextView tv = (TextView) findViewById(R.id.recognizedText);
-        assert tv != null;
-        noteText = noteText + resultString;
-        Log.d("stop", " finishing forming string");
-        Log.d("stop", " The string is " + resultString);
-
-        tv.setText(noteText);
+//        TextView tv = (TextView) findViewById(R.id.recognizedText);
+//        assert tv != null;
+//        noteText = noteText + resultString;
+//        tv.setText(noteText);
     }
 
 
@@ -141,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     //fill the textView id.recognizedText within received text
     private void receiveRecognizedText(List<String> heard, float[] scores) {
-        //List recognizedText = recognizedText + heard;
+        recognizedText.clear();
         for(String str: heard){
             recognizedText.add(str);
         }
@@ -150,11 +128,21 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onResults(Bundle results) {
         receiveResults(results);
+        TextView tv = (TextView) findViewById(R.id.note1);
+        assert tv != null;
+        noteText = noteText + recognizedText.get(0);
+        tv.setText(noteText);
+
     }
 
     @Override
     public void onPartialResults(Bundle partialResults) {
         receiveResults(partialResults);
+        TextView tv = (TextView) findViewById(R.id.note1);
+        assert tv != null;
+        noteText = noteText + recognizedText.get(0);
+        tv.setText(noteText);
+
     }
 
     @Override
