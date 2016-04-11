@@ -12,9 +12,9 @@ import android.widget.ViewSwitcher;
 
 import java.util.Random;
 
-public class Note implements View.OnFocusChangeListener, RecognitionListener {
+public class Note implements View.OnFocusChangeListener {
     private static int idGenerator = 0; //keeps last added note's id
-    private static final int [] colors = {Color.rgb(64,249,138), Color.rgb(255,255,102)};
+    private final int [] colors = {Color.rgb(64,249,138), Color.rgb(255,255,102)};
 
     private int id; //note's id
     private String textOfNote;
@@ -25,11 +25,11 @@ public class Note implements View.OnFocusChangeListener, RecognitionListener {
     private TextView textView;
     int colorOfNote;
 
-    public Note(Activity activity){
+    public Note(Activity activity, String text){
         setID();
         setBackgroundColorOfNote();
         createViewSwitcher(activity);
-        setText();
+        setText(text);
     }
 
     private void setBackgroundColorOfNote() {
@@ -44,7 +44,7 @@ public class Note implements View.OnFocusChangeListener, RecognitionListener {
         return id;
     }
     private void setID(){
-        id = 1 + idGenerator++; //i'm not sure :)
+        id = 1 + idGenerator++;
     }
 
     private void createViewSwitcher(Activity activity) {
@@ -56,77 +56,52 @@ public class Note implements View.OnFocusChangeListener, RecognitionListener {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams();
         vs.setLayoutParams(layoutParams);
 
-        createTextView();
-        createEditText();
+        createTextView(activity);
+        createEditText(activity);
         vs.addView(textView);
         vs.addView(editText);
     }
 
-    private void createTextView() {
+    private void createTextView(Activity activity) {
+        textView = new TextView(activity);
+        textView.setText(textOfNote);
+        //todo: params
+        textView.setLayoutParams();
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //change text view to edit text
+                editText.setText(textOfNote);
+                vs.showNext();
+            }
+        });
+
+    }
+
+    private void createEditText (Activity activity){
         //todo this method
-        textView = new TextView();
-
+        editText = new EditText(activity);
+        editText.setLayoutParams();
     }
 
-    private void createEditText (){
-        //todo this method
-        editText = new EditText();
-    }
-
-    public void setText(){
-
+    public void setText(String text){
+        this.textOfNote = text;
     }
 
 
+    public static void setIdGenerator (int lastId) {
+        idGenerator = lastId;
+    }
 
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-
+        //if unfocus edit text, editText become textView again
+        if(!hasFocus){
+            textView.setText(textOfNote);
+            vs.showPrevious();
+        }
     }
 
-    @Override
-    public void onReadyForSpeech(Bundle params) {
-
-    }
-
-    @Override
-    public void onBeginningOfSpeech() {
-
-    }
-
-    @Override
-    public void onRmsChanged(float rmsdB) {
-
-    }
-
-    @Override
-    public void onBufferReceived(byte[] buffer) {
-
-    }
-
-    @Override
-    public void onEndOfSpeech() {
-
-    }
-
-    @Override
-    public void onError(int error) {
-
-    }
-
-    @Override
-    public void onResults(Bundle results) {
-
-    }
-
-    @Override
-    public void onPartialResults(Bundle partialResults) {
-
-    }
-
-    @Override
-    public void onEvent(int eventType, Bundle params) {
-
-    }
 }
