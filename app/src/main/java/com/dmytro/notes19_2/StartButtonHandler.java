@@ -1,5 +1,6 @@
 package com.dmytro.notes19_2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 public class StartButtonHandler {
     SpeechRecognizer sr;
     //TODO spechRecognizer --> SpeechHandler
-    public StartButtonHandler(Button makeNewNote, SpeechRecognizer sr) {
+    public StartButtonHandler(Button makeNewNote, SpeechRecognizer sr, Activity mainActivity) {
         this.sr = sr;
         assert makeNewNote != null;
         makeNewNote.setOnTouchListener(new View.OnTouchListener() {
@@ -33,6 +34,9 @@ public class StartButtonHandler {
     //onClick method of the id.startButton
     //starting voice recognition
     private void start() {
+        //1. start speech recognition
+        //2.
+
         //todo handle this
         TextView tv = (TextView) MainActivity.findViewById(R.id.note1_text);
         assert tv != null;
@@ -53,4 +57,7 @@ public class StartButtonHandler {
         sr.stopListening();
     }
 
+    private addNote(){
+
+    }
 }

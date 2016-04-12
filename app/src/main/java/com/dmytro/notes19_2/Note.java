@@ -43,6 +43,7 @@ public class Note implements View.OnFocusChangeListener {
     public int getID(){
         return id;
     }
+
     private void setID(){
         id = 1 + idGenerator++;
     }
