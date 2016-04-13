@@ -2,36 +2,52 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.speech.RecognitionListener;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import java.util.Random;
 
+
+//Note is class of notes
+//
 public class Note implements View.OnFocusChangeListener {
-    private static int idGenerator = 0; //keeps last added note's id
-    private final int [] colors = {Color.rgb(64,249,138), Color.rgb(255,255,102)};
+    //keeps last added note's id
+    private static int idGenerator = 0;
 
-    private int id; //note's id
+    //array of note's colors
+    private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102)};
+
+    //note's id
+    private int id;
+    private int colorOfNote;
     private String textOfNote;
-    boolean onFocus;
 
+    //Note's text keepers
     private ViewSwitcher vs;
     private EditText editText;
     private TextView textView;
-    int colorOfNote;
 
-    public Note(Activity activity, String text){
+    public Note(Activity activity, String text) {
         setID();
         setBackgroundColorOfNote();
         createViewSwitcher(activity);
         setText(text);
     }
 
+    //public methods
+    public int getID() {
+        return id;
+    }
+
+    public static void setIdGenerator(int lastId) {
+        idGenerator = lastId;
+    }
+
+
+    //private methods
     private void setBackgroundColorOfNote() {
         //temporary method
         //TODO: rewrite this method. Should set colors in turn, not random
@@ -40,11 +56,8 @@ public class Note implements View.OnFocusChangeListener {
         colorOfNote = colors[rnd.nextInt() % colors.length];
     }
 
-    public int getID(){
-        return id;
-    }
 
-    private void setID(){
+    private void setID() {
         id = 1 + idGenerator++;
     }
 
@@ -53,8 +66,9 @@ public class Note implements View.OnFocusChangeListener {
         vs.setId(id);
         vs.setBackgroundColor(colorOfNote);
 
-        //TODO: how set layout params?
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams();
+        //set params: width: MATCH_PARENT, height - WRAP_CONTENT
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         vs.setLayoutParams(layoutParams);
 
         createTextView(activity);
@@ -66,13 +80,15 @@ public class Note implements View.OnFocusChangeListener {
     private void createTextView(Activity activity) {
         textView = new TextView(activity);
         textView.setText(textOfNote);
-        //todo: params
-        textView.setLayoutParams();
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setLayoutParams(layoutParams);
 
+
+        //onClick listener. Changing TextView to EditText when clicked
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //change text view to edit text
                 editText.setText(textOfNote);
                 vs.showNext();
             }
@@ -80,29 +96,26 @@ public class Note implements View.OnFocusChangeListener {
 
     }
 
-    private void createEditText (Activity activity){
-        //todo this method
+    private void createEditText(Activity activity) {
         editText = new EditText(activity);
-        editText.setLayoutParams();
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        editText.setLayoutParams(layoutParams);
     }
 
-    public void setText(String text){
+    private void setText(String text) {
         this.textOfNote = text;
-    }
-
-
-    public static void setIdGenerator (int lastId) {
-        idGenerator = lastId;
     }
 
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        //if unfocus edit text, editText become textView again
-        if(!hasFocus){
+        //if unfocus EditText field, editText becomes textView again
+        if (!hasFocus) {
             textView.setText(textOfNote);
             vs.showPrevious();
         }
     }
+
 
 }

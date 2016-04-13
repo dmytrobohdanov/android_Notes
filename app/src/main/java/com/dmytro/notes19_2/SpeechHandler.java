@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,14 +32,14 @@ public class SpeechHandler implements RecognitionListener {
     private SpeechRecognizer sr;
 
     //constructor
-    public SpeechHandler (Activity activity, ArrayList<Note> notes ){
+    public SpeechHandler(Activity activity, ArrayList<Note> notes) {
         this.activity = activity;
         this.notes = notes;
     }
 
     //public methods:
 
-    public void startListening(){
+    public void startListening() {
         sr = SpeechRecognizer.createSpeechRecognizer(activity);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizeDirectly(intent);
@@ -46,20 +47,17 @@ public class SpeechHandler implements RecognitionListener {
         sr.startListening(intent);
     }
 
-    public void stopListening(){
+    public void stopListening() {
         sr.stopListening();
     }
-
 
 
     //private methods:
 
     //initialization of SpeechRecognizer
-    private void recognizeDirectly(Intent recognizerIntent)
-    {
+    private void recognizeDirectly(Intent recognizerIntent) {
         // SpeechRecognizer requires EXTRA_CALLING_PACKAGE, so add if it's not here
-        if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE))
-        {
+        if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE)) {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "ru-RU");
             //maybe try sometime:
             //intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
@@ -70,8 +68,7 @@ public class SpeechHandler implements RecognitionListener {
         recognizer.startListening(recognizerIntent);
     }
 
-    private SpeechRecognizer getSpeechRecognizer()
-    {
+    private SpeechRecognizer getSpeechRecognizer() {
         SpeechRecognizer recognizer;
         recognizer = SpeechRecognizer.createSpeechRecognizer(activity);
         recognizer.setRecognitionListener(this);
@@ -82,17 +79,15 @@ public class SpeechHandler implements RecognitionListener {
     //todo: sometime change void method with global variable to List-returned method
     private void receiveRecognizedText(List<String> heard, float[] scores) {
         recognizedText.clear();
-        for(String str: heard){
+        for (String str : heard) {
             recognizedText.add(str);
         }
     }
 
     //get results of recognition
-    private void receiveResults(Bundle results)
-    {
+    private void receiveResults(Bundle results) {
         if ((results != null)
-                && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION))
-        {
+                && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)) {
             List<String> heard =
                     results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             float[] scores =
@@ -103,13 +98,13 @@ public class SpeechHandler implements RecognitionListener {
     }
 
 
-    private String getRecognizedText(){
+    private String getRecognizedText() {
         //return first variant of recognized text, the most probably one
         return recognizedText.get(0);
     }
 
     //adds new Note to array of notes
-    private void handleResult(){
+    private void handleResult() {
         notes.add(new Note(activity, getRecognizedText()));
     }
 
