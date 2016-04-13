@@ -39,13 +39,11 @@ public class Note implements View.OnFocusChangeListener {
         Log.d("Note", "creation of Note started");
         setID();
         setBackgroundColorOfNote();
-        createViewSwitcher(activity);
         setText(text);
+        createViewSwitcher(activity);
 //        RelativeLayout layout = (RelativeLayout) activity.findViewById(R.id.layout);
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
         layout.addView(vs);
-//        layout.addView(editText);
-//        layout.addView(textView);
         Log.d("Note", "Note creation done");
     }
 
@@ -88,6 +86,7 @@ public class Note implements View.OnFocusChangeListener {
         createEditText(activity);
         vs.addView(textView);
         vs.addView(editText);
+
         Log.d("Create ViewSwitcher", " finish");
 
     }
@@ -99,6 +98,8 @@ public class Note implements View.OnFocusChangeListener {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         textView.setLayoutParams(layoutParams);
+
+        textView.setTextSize(17);//todo remove this hell
 
 
         //onClick listener. Changing TextView to EditText when clicked
@@ -129,10 +130,10 @@ public class Note implements View.OnFocusChangeListener {
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         //if unfocus EditText field, editText becomes textView again
-        if (!hasFocus) {
+//        if (!hasFocus) {
             textView.setText(textOfNote);
             vs.showPrevious();
-        }
+//        }
     }
 
 

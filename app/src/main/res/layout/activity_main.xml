@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
-        android:background="#5959c6"
+        android:background="#62f16e"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
