@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.util.Log;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -33,21 +35,26 @@ public class SpeechHandler implements RecognitionListener {
 
     //constructor
     public SpeechHandler(Activity activity, ArrayList<Note> notes) {
+        Log.d("SpeechHandler", "creation");
         this.activity = activity;
         this.notes = notes;
+        Log.d("SpeechHandler", "creation done");
     }
 
     //public methods:
 
     public void startListening() {
+        Log.d("SpeechHandler", "startListening");
         sr = SpeechRecognizer.createSpeechRecognizer(activity);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizeDirectly(intent);
 
         sr.startListening(intent);
+        Log.d("SpeechHandler", "startListening finished");
     }
 
     public void stopListening() {
+        Log.d("SpeechHandler", "stop listening");
         sr.stopListening();
     }
 
@@ -56,6 +63,7 @@ public class SpeechHandler implements RecognitionListener {
 
     //initialization of SpeechRecognizer
     private void recognizeDirectly(Intent recognizerIntent) {
+        Log.d("SpeechHandler", "recognize");
         // SpeechRecognizer requires EXTRA_CALLING_PACKAGE, so add if it's not here
         if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE)) {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "ru-RU");
@@ -86,6 +94,7 @@ public class SpeechHandler implements RecognitionListener {
 
     //get results of recognition
     private void receiveResults(Bundle results) {
+        Log.d("SpeechHandler", "receive result");
         if ((results != null)
                 && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)) {
             List<String> heard =
@@ -110,12 +119,14 @@ public class SpeechHandler implements RecognitionListener {
 
     @Override
     public void onResults(Bundle results) {
+        Log.d("SpeechHandler", "on result");
         receiveResults(results);
         handleResult();
     }
 
     @Override
     public void onPartialResults(Bundle partialResults) {
+        Log.d("SpeechHandler", "on partical result");
         receiveResults(partialResults);
         handleResult();
     }

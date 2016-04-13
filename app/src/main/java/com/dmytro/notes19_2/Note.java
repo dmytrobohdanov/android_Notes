@@ -2,9 +2,13 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -20,6 +24,7 @@ public class Note implements View.OnFocusChangeListener {
     //array of note's colors
     private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102)};
 
+
     //note's id
     private int id;
     private int colorOfNote;
@@ -31,10 +36,17 @@ public class Note implements View.OnFocusChangeListener {
     private TextView textView;
 
     public Note(Activity activity, String text) {
+        Log.d("Note", "creation of Note started");
         setID();
         setBackgroundColorOfNote();
         createViewSwitcher(activity);
         setText(text);
+        RelativeLayout layout = (RelativeLayout) activity.findViewById(R.id.layout);
+//        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout);
+        layout.addView(vs);
+//        layout.addView(editText);
+//        layout.addView(textView);
+        Log.d("Note", "Note creation done");
     }
 
     //public methods
@@ -52,8 +64,8 @@ public class Note implements View.OnFocusChangeListener {
         //temporary method
         //TODO: rewrite this method. Should set colors in turn, not random
         Random rnd = new Random();
-        //getting random color from array of colors
-        colorOfNote = colors[rnd.nextInt() % colors.length];
+//        getting random color from array of colors
+        colorOfNote = colors[Math.abs(rnd.nextInt()) % colors.length];
     }
 
 
@@ -62,6 +74,7 @@ public class Note implements View.OnFocusChangeListener {
     }
 
     private void createViewSwitcher(Activity activity) {
+        Log.d("Create ViewSwitcher", " start");
         vs = new ViewSwitcher(activity);
         vs.setId(id);
         vs.setBackgroundColor(colorOfNote);
@@ -75,9 +88,12 @@ public class Note implements View.OnFocusChangeListener {
         createEditText(activity);
         vs.addView(textView);
         vs.addView(editText);
+        Log.d("Create ViewSwitcher", " finish");
+
     }
 
     private void createTextView(Activity activity) {
+        Log.d("Create textView", " start");
         textView = new TextView(activity);
         textView.setText(textOfNote);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -93,14 +109,16 @@ public class Note implements View.OnFocusChangeListener {
                 vs.showNext();
             }
         });
-
+        Log.d("Create textView", "finish");
     }
 
     private void createEditText(Activity activity) {
+        Log.d("Create editText", " start");
         editText = new EditText(activity);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         editText.setLayoutParams(layoutParams);
+        Log.d("Create editText", " finish");
     }
 
     private void setText(String text) {
