@@ -11,12 +11,40 @@
     android:id="@+id/layout">
 
 
-    <Button
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/startButtonName"
-        android:id="@+id/startButton"
-        android:layout_marginTop="35dp"
-         />
+        android:id="@+id/relativeLayout"
+        android:background="#5959c6"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startButtonName"
+            android:id="@+id/startButton"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_marginTop="57dp"
+
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp">
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

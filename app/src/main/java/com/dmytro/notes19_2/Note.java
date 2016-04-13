@@ -41,8 +41,8 @@ public class Note implements View.OnFocusChangeListener {
         setBackgroundColorOfNote();
         createViewSwitcher(activity);
         setText(text);
-        RelativeLayout layout = (RelativeLayout) activity.findViewById(R.id.layout);
-//        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout);
+//        RelativeLayout layout = (RelativeLayout) activity.findViewById(R.id.layout);
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
         layout.addView(vs);
 //        layout.addView(editText);
 //        layout.addView(textView);
