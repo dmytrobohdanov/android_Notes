@@ -92,6 +92,7 @@ public class Note implements View.OnFocusChangeListener {
         vs.addView(textView);
         vs.addView(editText);
 
+
         Log.d("Create ViewSwitcher", " finish");
 
     }
@@ -124,6 +125,18 @@ public class Note implements View.OnFocusChangeListener {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         editText.setLayoutParams(layoutParams);
+        View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.d("onfocuschange", "run");
+                //if unfocus EditText field, editText becomes textView again
+                if (!hasFocus) {
+                    textView.setText(textOfNote);
+                    vs.showPrevious();
+                }
+            }
+        };
+        editText.setOnFocusChangeListener(focusChangeListener);
         Log.d("Create editText", " finish");
     }
 
@@ -134,12 +147,6 @@ public class Note implements View.OnFocusChangeListener {
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        //if unfocus EditText field, editText becomes textView again
-//        if (!hasFocus) {
-            textView.setText(textOfNote);
-            vs.showPrevious();
-//        }
+
     }
-
-
 }
