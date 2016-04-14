@@ -76,11 +76,16 @@ public class Note implements View.OnFocusChangeListener {
         vs = new ViewSwitcher(activity);
         vs.setId(id);
         vs.setBackgroundColor(colorOfNote);
+        vs.setPadding(0, 10, 0, 1);
 
         //set params: width: MATCH_PARENT, height - WRAP_CONTENT
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+//        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 10, 0, 10);
         vs.setLayoutParams(layoutParams);
+
 
         createTextView(activity);
         createEditText(activity);
