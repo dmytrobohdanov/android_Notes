@@ -2,13 +2,11 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -17,12 +15,14 @@ import java.util.Random;
 
 //Note is class of notes
 //
-public class Note implements View.OnFocusChangeListener {
+public class Note {
     //keeps last added note's id
     private static int idGenerator = 0;
 
     //array of note's colors
-    private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102)};
+    private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102),
+            Color.rgb(255, 110, 110), Color.rgb(249, 136, 238), Color.rgb(168, 163, 242),
+            Color.rgb(255, 255, 153)};
 
 
     //note's id
@@ -142,11 +142,5 @@ public class Note implements View.OnFocusChangeListener {
 
     private void setText(String text) {
         this.textOfNote = text;
-    }
-
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-
     }
 }
