@@ -1,7 +1,6 @@
 package com.dmytro.notes19_2;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -9,6 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+/**
+ * ViewCreator
+ * ask for note should be shown
+ * and adds it to specified layout
+ */
+//todo change layout naming and usage
 public class ViewCreator {
     String textOfNote;
     int colorOfNote;
@@ -19,6 +24,11 @@ public class ViewCreator {
     private EditText editText;
     private TextView textView;
 
+    /**
+     * Constructor of class
+     * @param activity - current activity
+     * @param note - the note has to be shown
+     */
     ViewCreator(Activity activity, Note note){
         this.colorOfNote = note.getColor();
         this.textOfNote = note.getText();
@@ -36,8 +46,6 @@ public class ViewCreator {
         vs.setPadding(0, 10, 0, 1);
 
         //set params: width: MATCH_PARENT, height - WRAP_CONTENT
-//        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 10);
@@ -52,7 +60,6 @@ public class ViewCreator {
     }
 
     private void createTextView(Activity activity) {
-        Log.d("Create textView", " start");
         textView = new TextView(activity);
         textView.setText(textOfNote);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -70,11 +77,10 @@ public class ViewCreator {
                 vs.showNext();
             }
         });
-        Log.d("Create textView", "finish");
     }
 
+
     private void createEditText(Activity activity) {
-        Log.d("Create editText", " start");
         editText = new EditText(activity);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);

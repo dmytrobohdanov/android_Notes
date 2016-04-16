@@ -2,10 +2,6 @@ package com.dmytro.notes19_2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.RelativeLayout;
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,91 +13,69 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        try {
-            notes = DataSaver.getArrayOfNotes();
-        } catch (IOException e) {
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadSavedNotes();
 
         setContentView(R.layout.activity_main);
 
         SpeechHandler speechHandler = new SpeechHandler(this, notes);
 
-        StartButtonHandler startButtonHandler = new StartButtonHandler(speechHandler, this);
+        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(speechHandler, this);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        try {
-            notes = DataSaver.getArrayOfNotes();
-        } catch (IOException e) {
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadSavedNotes();
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        try {
-            notes = DataSaver.getArrayOfNotes();
-        } catch (IOException e) {
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadSavedNotes();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        try {
-            notes = DataSaver.getArrayOfNotes();
-        } catch (IOException e) {
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadSavedNotes();
     }
 
     @Override
     protected void onPause(){
-        try {
-            DataSaver.saveArrayOfNotes(notes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveNotes();
         super.onPause();
     }
 
     @Override
     protected void onStop(){
-        try {
-            DataSaver.saveArrayOfNotes(notes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveNotes();
         super.onStop();
     }
 
     @Override
     protected void onDestroy(){
+        saveNotes();
+        super.onDestroy();
+    }
+
+    private void saveNotes(){
         try {
             DataSaver.saveArrayOfNotes(notes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        super.onDestroy();
     }
 
+    private void loadSavedNotes(){
+        try {
+            //if there are saved notes
+            notes = DataSaver.getArrayOfNotes();
+        } catch (IOException e) {
+            //if there is no this file - create new arraylist of notes
+            notes = new ArrayList<>();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

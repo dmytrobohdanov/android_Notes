@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
-        android:background="#27a0eb"
+        android:background="#759fd9"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
@@ -24,8 +24,17 @@
             android:layout_height="wrap_content"
             android:text="@string/startButtonName"
             android:id="@+id/startButton"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textButtonName"
+            android:id="@+id/addNoteByTextButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="36dp" />
 
     </RelativeLayout>
 

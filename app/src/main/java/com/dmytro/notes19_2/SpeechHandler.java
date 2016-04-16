@@ -6,21 +6,19 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
-import android.widget.RelativeLayout;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
-//SpeechHandler is a class which listening speech and create text from it
-//constructor receive 2 params: Activity and ArrayList of notes
-//it has 2 public methods:
-//startListening()
-//stopListening()
-//after speech recognition class call method (onResult() or onPartialResults())
-//which add new Note with recognized text
+/** SpeechHandler is a class which listening speech and create text from it
+ * constructor receive 2 params: Activity and ArrayList of notes
+ * it has 2 public methods:
+ * startListening()
+ * stopListening()
+ * after speech recognition class call method (onResult() or onPartialResults())
+ * which add new Note with recognized text
+ */
 
 public class SpeechHandler implements RecognitionListener {
 
@@ -33,41 +31,46 @@ public class SpeechHandler implements RecognitionListener {
 
     private SpeechRecognizer sr;
 
-    //constructor
+    /**
+     * Constructor
+     * @param activity current activity
+     * @param notes - pointer for array of notes
+     */
     public SpeechHandler(Activity activity, ArrayList<Note> notes) {
-        Log.d("SpeechHandler", "creation");
         this.activity = activity;
         this.notes = notes;
-        Log.d("SpeechHandler", "creation done");
     }
 
     //public methods:
 
+    /**
+     * StartListening:
+     * initialization of speech recognizers and activate them
+     */
     public void startListening() {
-        Log.d("SpeechHandler", "startListening");
         sr = SpeechRecognizer.createSpeechRecognizer(activity);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizeDirectly(intent);
 
         sr.startListening(intent);
-        Log.d("SpeechHandler", "startListening finished");
     }
 
+    /**
+     * stop listening of voice
+     */
     public void stopListening() {
-        Log.d("SpeechHandler", "stop listening");
         sr.stopListening();
     }
 
 
     //private methods:
 
-    //initialization of SpeechRecognizer
+    /**initialization of SpeechRecognizer*/
     private void recognizeDirectly(Intent recognizerIntent) {
-        Log.d("SpeechHandler", "recognize");
         // SpeechRecognizer requires EXTRA_CALLING_PACKAGE, so add if it's not here
         if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE)) {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "ru-RU");
-            //maybe try sometime:
+            //todo maybe try sometime:
             //intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
             //recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.dummy");
         }
@@ -83,18 +86,24 @@ public class SpeechHandler implements RecognitionListener {
         return recognizer;
     }
 
-    //get list of variants of recognized text
-    //todo: sometime change void method with global variable to List-returned method
+    /**
+     *   get list of variants of recognized text
+     * @param heard - list of variants of recognizered text
+     * @param scores - possibility of each variant is true
+     */
     private void receiveRecognizedText(List<String> heard, float[] scores) {
         recognizedText.clear();
         for (String str : heard) {
             recognizedText.add(str);
         }
+        //todo: sometime change void method with global variable to List-returned method
     }
 
-    //get results of recognition
+    /**
+     * get results of recognition
+     * @param results //todo
+     */
     private void receiveResults(Bundle results) {
-        Log.d("SpeechHandler", "receive result");
         if ((results != null)
                 && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)) {
             List<String> heard =
@@ -106,13 +115,17 @@ public class SpeechHandler implements RecognitionListener {
         }
     }
 
-
+    /**
+     * get recognized text:
+     * for now - firs one in silt - the one with highest possibility
+     * @return recognized text
+     */
     private String getRecognizedText() {
         //return first variant of recognized text, the most probably one
         return recognizedText.get(0);
     }
 
-    //adds new Note to array of notes
+    /** adds new Note to array of notes */
     private void handleResult() {
         Note newNote = new Note(getRecognizedText());
         notes.add(newNote);
@@ -121,14 +134,12 @@ public class SpeechHandler implements RecognitionListener {
 
     @Override
     public void onResults(Bundle results) {
-        Log.d("SpeechHandler", "on result");
         receiveResults(results);
         handleResult();
     }
 
     @Override
     public void onPartialResults(Bundle partialResults) {
-        Log.d("SpeechHandler", "on partical result");
         receiveResults(partialResults);
         handleResult();
     }
