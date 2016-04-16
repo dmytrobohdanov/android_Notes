@@ -76,32 +76,32 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
-        super.onPause();
         try {
             DataSaver.saveArrayOfNotes(notes);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        super.onPause();
     }
 
     @Override
     protected void onStop(){
-        super.onStop();
         try {
             DataSaver.saveArrayOfNotes(notes);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        super.onStop();
     }
 
     @Override
     protected void onDestroy(){
-        super.onDestroy();
         try {
             DataSaver.saveArrayOfNotes(notes);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        super.onDestroy();
     }
 
 }

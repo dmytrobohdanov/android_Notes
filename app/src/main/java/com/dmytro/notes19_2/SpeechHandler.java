@@ -114,7 +114,9 @@ public class SpeechHandler implements RecognitionListener {
 
     //adds new Note to array of notes
     private void handleResult() {
-        notes.add(new Note(activity, getRecognizedText()));
+        Note newNote = new Note(getRecognizedText());
+        notes.add(newNote);
+        ViewCreator view = new ViewCreator(activity, newNote);
     }
 
     @Override
