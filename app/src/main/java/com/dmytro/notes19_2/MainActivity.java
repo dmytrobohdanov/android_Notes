@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         SpeechHandler speechHandler = new SpeechHandler(this, notes);
 
         VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(speechHandler, this);
+        TextButtonHandler textButtonHandler = new TextButtonHandler(this, notes);
     }
 
     @Override

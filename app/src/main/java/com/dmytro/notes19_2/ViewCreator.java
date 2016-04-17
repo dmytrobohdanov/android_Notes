@@ -1,8 +1,11 @@
 package com.dmytro.notes19_2;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,9 +39,23 @@ public class ViewCreator {
         createViewSwitcher(activity);
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
         layout.addView(vs);
-
     }
 
+    /**asking current ViewText change TextView To EditText*/
+    public void changeToEditText(Activity activity) {
+        editText.setText(textOfNote);
+        vs.showNext();
+        editText.requestFocus();
+        //todo clean up it!!!
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, 0);
+        //todo: rewrite it: handle situation when vs.showNext() is null, i.e. vs is already shows EditText
+    }
+
+    /**
+     * ViewSwitcher changing displaying views between
+     * EditText and TextView
+     */
     private void createViewSwitcher(Activity activity) {
         vs = new ViewSwitcher(activity);
         vs.setId(id);
@@ -59,7 +76,8 @@ public class ViewCreator {
         vs.addView(editText);
     }
 
-    private void createTextView(Activity activity) {
+    /**creating TextView*/
+    private void createTextView(final Activity activity) {
         textView = new TextView(activity);
         textView.setText(textOfNote);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -73,23 +91,31 @@ public class ViewCreator {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //todo change next 2 lines to changeToEditText()
                 editText.setText(textOfNote);
                 vs.showNext();
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, 0);
+                //todo cleanup this!
             }
         });
     }
 
-
+    /**creating EditText*/
     private void createEditText(Activity activity) {
         editText = new EditText(activity);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         editText.setLayoutParams(layoutParams);
+        editText.setFocusableInTouchMode(true);
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 //if unfocus EditText field, editText becomes textView again
                 if (!hasFocus) {
+                    //todo write showTextView, handling situation when TextView is already shown
+                    textOfNote = editText.getText().toString();
                     textView.setText(textOfNote);
                     vs.showPrevious();
                 }
@@ -97,6 +123,7 @@ public class ViewCreator {
         };
         editText.setOnFocusChangeListener(focusChangeListener);
     }
+
 
 
 }
