@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
-/** SpeechHandler is a class which listening speech and create text from it
+/**
+ * SpeechHandler is a class which listening speech and create text from it
  * constructor receive 2 params: Activity and ArrayList of notes
  * it has 2 public methods:
  * startListening()
@@ -33,8 +35,9 @@ public class SpeechHandler implements RecognitionListener {
 
     /**
      * Constructor
+     *
      * @param activity current activity
-     * @param notes - pointer for array of notes
+     * @param notes    - pointer for array of notes
      */
     public SpeechHandler(Activity activity, ArrayList<Note> notes) {
         this.activity = activity;
@@ -65,7 +68,9 @@ public class SpeechHandler implements RecognitionListener {
 
     //private methods:
 
-    /**initialization of SpeechRecognizer*/
+    /**
+     * initialization of SpeechRecognizer
+     */
     private void recognizeDirectly(Intent recognizerIntent) {
         // SpeechRecognizer requires EXTRA_CALLING_PACKAGE, so add if it's not here
         if (!recognizerIntent.hasExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE)) {
@@ -87,8 +92,9 @@ public class SpeechHandler implements RecognitionListener {
     }
 
     /**
-     *   get list of variants of recognized text
-     * @param heard - list of variants of recognizered text
+     * get list of variants of recognized text
+     *
+     * @param heard  - list of variants of recognizered text
      * @param scores - possibility of each variant is true
      */
     private void receiveRecognizedText(List<String> heard, float[] scores) {
@@ -101,6 +107,7 @@ public class SpeechHandler implements RecognitionListener {
 
     /**
      * get results of recognition
+     *
      * @param results //todo
      */
     private void receiveResults(Bundle results) {
@@ -118,6 +125,7 @@ public class SpeechHandler implements RecognitionListener {
     /**
      * get recognized text:
      * for now - firs one in silt - the one with highest possibility
+     *
      * @return recognized text
      */
     private String getRecognizedText() {
@@ -125,7 +133,9 @@ public class SpeechHandler implements RecognitionListener {
         return recognizedText.get(0);
     }
 
-    /** adds new Note to array of notes */
+    /**
+     * adds new Note to array of notes
+     */
     private void handleResult() {
         Note newNote = new Note(getRecognizedText());
         notes.add(newNote);

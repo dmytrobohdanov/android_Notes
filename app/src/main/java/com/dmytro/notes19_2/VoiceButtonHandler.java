@@ -36,14 +36,14 @@ public class VoiceButtonHandler {
     /**
      * onClick method of the id.startButton
      * starting voice recognition
-     * */
+     */
     private void start() {
         speechHandler.startListening();
     }
 
     /**
-     *  onUp method of the id.startButton
-     *  stops listening
+     * onUp method of the id.startButton
+     * stops listening
      */
     private void stop() {
         speechHandler.stopListening();

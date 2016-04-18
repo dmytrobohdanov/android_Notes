@@ -1,12 +1,14 @@
 package com.dmytro.notes19_2;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -27,21 +29,64 @@ public class ViewCreator {
     private EditText editText;
     private TextView textView;
 
+    //Note's photo keeper
+    ImageView imageNote;
+
     /**
      * Constructor of class
+     * for text and voice notes
+     *
      * @param activity - current activity
-     * @param note - the note has to be shown
+     * @param note     - the note has to be shown
      */
-    ViewCreator(Activity activity, Note note){
-        this.colorOfNote = note.getColor();
-        this.textOfNote = note.getText();
+    ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
-        createViewSwitcher(activity);
-        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
-        layout.addView(vs);
+
+        /**
+         * checking is this note text/from voice or a photo note
+         * if bitmap is null so it is text/voice note and we create TextView(ViewSwitcher)
+         * else it's photo note and we creating ImageView
+         */
+        if (note.bitmap == null) {
+            this.colorOfNote = note.getColor();
+            this.textOfNote = note.getText();
+
+            createViewSwitcher(activity);
+            LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
+            layout.addView(vs);
+        } else {
+            createImageNote(activity, note.bitmap);
+        }
     }
 
-    /**asking current ViewText change TextView To EditText*/
+    /**
+     * creating ImageNote
+     * and adds it to layout
+     *
+     * @param activity current
+     * @param bitmap   image of note
+     */
+    private void createImageNote(Activity activity, Bitmap bitmap) {
+        imageNote.setImageBitmap(bitmap);
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
+        layout.addView(imageNote);
+    }
+
+    /**
+     * Constructor of class
+     * for photo note
+     *
+     * @param activity  current view
+     * @param imageView photo note
+     */
+    ViewCreator(Activity activity, ImageView imageView) {
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
+        layout.addView(imageView);
+    }
+
+    /**
+     * asking current ViewText change TextView To EditText
+     */
     public void changeToEditText(Activity activity) {
         editText.setText(textOfNote);
         vs.showNext();
@@ -76,7 +121,9 @@ public class ViewCreator {
         vs.addView(editText);
     }
 
-    /**creating TextView*/
+    /**
+     * creating TextView
+     */
     private void createTextView(final Activity activity) {
         textView = new TextView(activity);
         textView.setText(textOfNote);
@@ -102,7 +149,9 @@ public class ViewCreator {
         });
     }
 
-    /**creating EditText*/
+    /**
+     * creating EditText
+     */
     private void createEditText(Activity activity) {
         editText = new EditText(activity);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -123,7 +172,6 @@ public class ViewCreator {
         };
         editText.setOnFocusChangeListener(focusChangeListener);
     }
-
 
 
 }

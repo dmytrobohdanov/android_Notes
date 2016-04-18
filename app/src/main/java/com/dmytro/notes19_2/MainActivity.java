@@ -2,12 +2,13 @@ package com.dmytro.notes19_2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public static ArrayList<Note> notes = new ArrayList<>();
+    //    public static ArrayList<Note> notes = new ArrayList<>();
     public static ArrayList<Note> notes;
 
     @Override
@@ -25,42 +26,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         loadSavedNotes();
     }
 
     @Override
-    protected void onRestart(){
+    protected void onRestart() {
         super.onRestart();
         loadSavedNotes();
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         loadSavedNotes();
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         saveNotes();
         super.onPause();
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         saveNotes();
         super.onStop();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         saveNotes();
         super.onDestroy();
     }
 
-    private void saveNotes(){
+    private void saveNotes() {
         try {
             DataSaver.saveArrayOfNotes(notes);
         } catch (IOException e) {
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void loadSavedNotes(){
+    private void loadSavedNotes() {
         try {
             //if there are saved notes
             notes = DataSaver.getArrayOfNotes();

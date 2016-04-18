@@ -17,12 +17,13 @@ import java.util.ArrayList;
  */
 public class DataSaver {
 
-      //public methods
+    //public methods
 
     /**
      * Get array of Notes
+     *
      * @return ArrayList<Note> object - the one that keeps all saved notes on hard drive
-     * @throws IOException if there is no such file
+     * @throws IOException            if there is no such file
      * @throws ClassNotFoundException
      */
     public static ArrayList<Note> getArrayOfNotes() throws IOException, ClassNotFoundException {
@@ -45,6 +46,7 @@ public class DataSaver {
 
     /**
      * Saving notes to hard drive
+     *
      * @param notes - array of Notes has to be saved
      * @throws IOException
      */

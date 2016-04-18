@@ -3,6 +3,7 @@ package com.dmytro.notes19_2;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
+
 import java.util.ArrayList;
 
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * listening onClick of button
  * create new empty Note and displays it
  */
-public class TextButtonHandler{
+public class TextButtonHandler {
     private Button makeNewNote;
     private Activity activity;
 

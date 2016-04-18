@@ -1,6 +1,8 @@
 package com.dmytro.notes19_2;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+
 import java.util.Random;
 
 
@@ -24,8 +26,13 @@ public class Note {
     private int colorOfNote;
     private String textOfNote;
 
+    //for photo note
+    Bitmap bitmap = null;
+
     /**
      * Constructor
+     * for text notes
+     *
      * @param text of the note
      */
     public Note(String text) {
@@ -34,11 +41,24 @@ public class Note {
         setText(text);
     }
 
+    /**
+     * constructor
+     * for photo notes
+     *
+     * @param bitmap - image from camera
+     */
+    public Note(Bitmap bitmap) {
+        setID();
+        this.bitmap = bitmap;
+        setText(null);
+    }
 
 
     //public methods
+
     /**
      * getID()
+     *
      * @return ID of note
      */
     public int getID() {
@@ -47,22 +67,25 @@ public class Note {
 
     /**
      * getText()
+     *
      * @return text of the note
      */
-    public String getText(){
+    public String getText() {
         return textOfNote;
     }
 
     /**
      * getColor()
+     *
      * @return color of the note
      */
-    public int getColor(){
+    public int getColor() {
         return colorOfNote;
     }
 
     /**
      * Set idGenerator - the variable thats sets our id initialization
+     *
      * @param lastId - the id of the last note in our list
      */
     //todo here could be problem: should find out how works id adding after app reboot
@@ -73,6 +96,7 @@ public class Note {
 
     /**
      * needs fo manual (outside of constructor) changing of the text of note
+     *
      * @param text of the note
      */
     public void setText(String text) {
@@ -81,9 +105,10 @@ public class Note {
 
     /**
      * Needs for manual (outside of constructor) changing of color of note
+     *
      * @param color color we want to set for note
      */
-    public void setColor(int color){
+    public void setColor(int color) {
         this.colorOfNote = color;
     }
 
