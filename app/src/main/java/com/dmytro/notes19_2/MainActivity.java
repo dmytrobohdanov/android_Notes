@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         TextButtonHandler textButtonHandler = new TextButtonHandler(this, notes);
     }
 
+
     @Override
     protected void onStart(){
         super.onStart();
