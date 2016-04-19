@@ -16,10 +16,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        SpeechHandler speechHandler = new SpeechHandler(this, notes);
 
-        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(speechHandler, this);
         TextButtonHandler textButtonHandler = new TextButtonHandler(this, notes);
+
+        SpeechHandler speechHandler = new SpeechHandler(this, notes);
+        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
+
+        PhotoButtonHandler photoButtonHandler = new PhotoButtonHandler(this, notes);
     }
 
 

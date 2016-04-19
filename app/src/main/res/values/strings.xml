@@ -3,5 +3,5 @@
     <string name="recognizedTextHint">here will be text</string>
     <string name="startButtonName">voice</string>
     <string name="textButtonName">text</string>
-    <string name="AddPhotoNoteButton">Photo</string>
+    <string name="AddPhotoNoteButton">photo</string>
 </resources>
