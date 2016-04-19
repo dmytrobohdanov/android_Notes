@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * Saves data to the file
  * for now: using serialization
  * todo: someday - use DB instead of it
- * has 2 static methods
  */
 public class DataSaver {
 
@@ -26,7 +25,7 @@ public class DataSaver {
      * @throws IOException            if there is no such file
      * @throws ClassNotFoundException
      */
-    public static ArrayList<Note> getArrayOfNotes() throws IOException, ClassNotFoundException {
+    private static ArrayList<Note> getArrayOfNotes() throws IOException, ClassNotFoundException {
         ArrayList<Note> notes = null;
 
         FileInputStream fileInputStream = new FileInputStream("notes.out");
@@ -44,13 +43,15 @@ public class DataSaver {
         return notes;
     }
 
+
+
     /**
      * Saving notes to hard drive
      *
      * @param notes - array of Notes has to be saved
      * @throws IOException
      */
-    public static void saveArrayOfNotes(ArrayList<Note> notes) throws IOException {
+    private static void saveArrayOfNotes(ArrayList<Note> notes) throws IOException {
         //serializing of our ArrayList of notes
         File notesFile = new File("notes.out");
         FileOutputStream fos = new FileOutputStream(notesFile);
@@ -61,4 +62,27 @@ public class DataSaver {
         oos.close();
 
     }
+
+//todo: comments
+    public static void saveNotes(ArrayList<Note> notes) {
+        try {
+            saveArrayOfNotes(notes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Note> loadSavedNotes(ArrayList<Note> notes) {
+        try {
+            //if there are saved notes
+            notes = getArrayOfNotes();
+        } catch (IOException e) {
+            //if there is no this file - create new arraylist of notes
+            notes = new ArrayList<>();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return notes;
+    }
+
 }

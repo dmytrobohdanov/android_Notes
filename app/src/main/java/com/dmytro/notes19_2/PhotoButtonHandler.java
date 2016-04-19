@@ -7,16 +7,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 
-public class PhotoButtonHandler {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int RESULT_OK = 0; //have no idea about this value
+public class PhotoButtonHandler extends Activity{
+    static final int REQUEST_IMAGE_CAPTURE = 0;
     private Button photoButton;
-    private ImageView imgView;
     Activity mainActivity;
 
     //pointer to arraylist of notes
@@ -38,8 +35,8 @@ public class PhotoButtonHandler {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(mainActivity.getPackageManager()) != null) {
-            mainActivity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
@@ -48,7 +45,6 @@ public class PhotoButtonHandler {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //todo: create Note
             notes.add(new Note(imageBitmap));
         }
     }

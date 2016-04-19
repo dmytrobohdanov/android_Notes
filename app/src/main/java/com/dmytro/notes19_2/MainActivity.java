@@ -2,8 +2,6 @@ package com.dmytro.notes19_2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadSavedNotes();
+        notes = DataSaver.loadSavedNotes(notes);
 
         setContentView(R.layout.activity_main);
 
@@ -25,60 +23,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
-        loadSavedNotes();
+        notes = DataSaver.loadSavedNotes(notes);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        loadSavedNotes();
+        notes = DataSaver.loadSavedNotes(notes);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadSavedNotes();
+        notes = DataSaver.loadSavedNotes(notes);
     }
 
     @Override
     protected void onPause() {
-        saveNotes();
+        DataSaver.saveNotes(notes);
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        saveNotes();
+        DataSaver.saveNotes(notes);
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        saveNotes();
+        DataSaver.saveNotes(notes);
         super.onDestroy();
     }
 
-    private void saveNotes() {
-        try {
-            DataSaver.saveArrayOfNotes(notes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadSavedNotes() {
-        try {
-            //if there are saved notes
-            notes = DataSaver.getArrayOfNotes();
-        } catch (IOException e) {
-            //if there is no this file - create new arraylist of notes
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
 
