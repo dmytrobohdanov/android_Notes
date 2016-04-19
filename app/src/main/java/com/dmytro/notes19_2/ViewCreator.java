@@ -67,6 +67,7 @@ public class ViewCreator {
      * @param bitmap   image of note
      */
     private void createImageNote(Activity activity, Bitmap bitmap) {
+        imageNote = new ImageView(activity);
         imageNote.setImageBitmap(bitmap);
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
         layout.addView(imageNote);

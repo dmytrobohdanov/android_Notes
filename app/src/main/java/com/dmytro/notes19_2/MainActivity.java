@@ -1,12 +1,14 @@
 package com.dmytro.notes19_2;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    public static ArrayList<Note> notes = new ArrayList<>();
     public static ArrayList<Note> notes;
 
     @Override
@@ -61,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         DataSaver.saveNotes(notes);
         super.onDestroy();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//todo remove from here
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Note newNote = new Note(imageBitmap);
+            notes.add(newNote);
+            ViewCreator viewCreator = new ViewCreator(this, newNote);
+        }
     }
 
 }

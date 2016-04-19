@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
-        android:background="#0aedf7"
+        android:background="#caf5f6"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
@@ -33,17 +33,17 @@
             android:text="@string/textButtonName"
             android:id="@+id/addNoteByTextButton"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="36dp" />
+            android:layout_toStartOf="@+id/startButton"
+            android:layout_marginEnd="29dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/AddPhotoNoteButton"
             android:id="@+id/photoButton"
+            android:layout_marginStart="29dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="33dp" />
+            android:layout_toEndOf="@+id/startButton" />
 
     </RelativeLayout>
 
