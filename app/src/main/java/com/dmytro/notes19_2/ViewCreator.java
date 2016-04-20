@@ -2,7 +2,6 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -74,7 +73,7 @@ public class ViewCreator {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 10);
         imageNote.setLayoutParams(layoutParams);
-        
+
         return imageNote;
     }
 
@@ -86,9 +85,7 @@ public class ViewCreator {
         editText.setText(textOfNote);
         vs.showNext();
         editText.requestFocus();
-        //todo clean up it!!!
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, 0);
+        showKeyboard(activity);
         //todo: rewrite it: handle situation when vs.showNext() is null, i.e. vs is already shows EditText
     }
 
@@ -137,9 +134,7 @@ public class ViewCreator {
                 editText.setText(textOfNote);
                 vs.showNext();
                 editText.requestFocus();
-                InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, 0);
-                //todo cleanup this!
+                showKeyboard(activity);
             }
         });
     }
@@ -169,4 +164,13 @@ public class ViewCreator {
     }
 
 
+    /**
+     * Shows keyboard to edit and add text
+     *
+     * @param activity
+     */
+    private void showKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
+    }
 }
