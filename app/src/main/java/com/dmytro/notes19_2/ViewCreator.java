@@ -2,6 +2,7 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -39,7 +40,7 @@ public class ViewCreator {
      */
     ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
-
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
         /**
          * checking is this note text/from voice or a photo note
          * if bitmap is null so it is text/voice note and we create TextView(ViewSwitcher)
@@ -50,10 +51,10 @@ public class ViewCreator {
             this.textOfNote = note.getText();
 
             createViewSwitcher(activity);
-            LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
             layout.addView(vs);
         } else {
-            createImageNote(activity, note.bitmap);
+            imageNote = createImageNote(activity, note.bitmap);
+            layout.addView(imageNote);
         }
     }
 
@@ -64,24 +65,19 @@ public class ViewCreator {
      * @param activity current
      * @param bitmap   image of note
      */
-    private void createImageNote(Activity activity, Bitmap bitmap) {
-        imageNote = new ImageView(activity);
+    private ImageView createImageNote(Activity activity, Bitmap bitmap) {
+        ImageView imageNote = new ImageView(activity);
         imageNote.setImageBitmap(bitmap);
-        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
-        layout.addView(imageNote);
+        imageNote.setPadding(0, 10, 0, 1);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 10, 0, 10);
+        imageNote.setLayoutParams(layoutParams);
+        
+        return imageNote;
     }
 
-    /**
-     * Constructor of class
-     * for photo note
-     *
-     * @param activity  current view
-     * @param imageView photo note
-     */
-    ViewCreator(Activity activity, ImageView imageView) {
-        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
-        layout.addView(imageView);
-    }
 
     /**
      * asking current ViewText change TextView To EditText
