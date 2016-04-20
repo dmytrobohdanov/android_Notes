@@ -7,7 +7,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,10 +25,10 @@ public class SpeechHandler implements RecognitionListener {
 
     //array of recognized variants of text
     private List<String> recognizedText = new LinkedList<>();
-    //pointer to array of notes in MainActivity
-    private ArrayList<Note> notes;
     //pointer to current activity
     private Activity activity;
+
+    NotesKeeper notesKeeper;
 
     private SpeechRecognizer sr;
 
@@ -37,11 +36,10 @@ public class SpeechHandler implements RecognitionListener {
      * Constructor
      *
      * @param activity current activity
-     * @param notes    - pointer for array of notes
      */
-    public SpeechHandler(Activity activity, ArrayList<Note> notes) {
+    public SpeechHandler(Activity activity) {
         this.activity = activity;
-        this.notes = notes;
+        notesKeeper = NotesKeeper.getInstance();
     }
 
     //public methods:
@@ -138,7 +136,7 @@ public class SpeechHandler implements RecognitionListener {
      */
     private void handleResult() {
         Note newNote = new Note(getRecognizedText());
-        notes.add(newNote);
+        notesKeeper.add(newNote);
         ViewCreator view = new ViewCreator(activity, newNote);
     }
 

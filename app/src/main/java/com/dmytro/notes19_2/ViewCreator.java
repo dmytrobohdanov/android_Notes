@@ -2,10 +2,8 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;

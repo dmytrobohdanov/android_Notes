@@ -5,26 +5,26 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<Note> notes;
+//    public static ArrayList<Note> notes;
+    NotesKeeper notesKeeper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        notes = DataSaver.loadSavedNotes(notes);
+        notesKeeper = NotesKeeper.getInstance();
+//        notes = DataSaver.loadSavedNotes(notes);
 
         setContentView(R.layout.activity_main);
 
 
-        TextButtonHandler textButtonHandler = new TextButtonHandler(this, notes);
+        TextButtonHandler textButtonHandler = new TextButtonHandler(this);
 
-        SpeechHandler speechHandler = new SpeechHandler(this, notes);
+        SpeechHandler speechHandler = new SpeechHandler(this);
         VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
 
-        PhotoButtonHandler photoButtonHandler = new PhotoButtonHandler(this, notes);
+        PhotoButtonHandler photoButtonHandler = new PhotoButtonHandler(this);
     }
 
 
@@ -32,38 +32,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        notes = DataSaver.loadSavedNotes(notes);
+//        notes = DataSaver.loadSavedNotes(notes);
+        notesKeeper = NotesKeeper.getInstance();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        notes = DataSaver.loadSavedNotes(notes);
+//        notes = DataSaver.loadSavedNotes(notes);
+        notesKeeper = NotesKeeper.getInstance();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        notes = DataSaver.loadSavedNotes(notes);
+//        notes = DataSaver.loadSavedNotes(notes);
+        notesKeeper = NotesKeeper.getInstance();
     }
 
     @Override
     protected void onPause() {
-        DataSaver.saveNotes(notes);
+        notesKeeper.saveAllNotesToDisk();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        DataSaver.saveNotes(notes);
+        notesKeeper.saveAllNotesToDisk();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        DataSaver.saveNotes(notes);
+        notesKeeper.saveAllNotesToDisk();
         super.onDestroy();
     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //todo remove from here
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             Note newNote = new Note(imageBitmap);
-            notes.add(newNote);
+            notesKeeper.add(newNote);
             ViewCreator viewCreator = new ViewCreator(this, newNote);
         }
     }

@@ -18,6 +18,34 @@ public class DataSaver {
 
     //public methods
 
+
+    //todo: comments
+    public static void saveNotes(ArrayList<Note> notes) {
+        try {
+            saveArrayOfNotes(notes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static ArrayList<Note> loadSavedNotes() {
+        try {
+            //if there are saved notes
+            return getArrayOfNotes();
+        } catch (IOException e) {
+            //if there is no this file - create new arraylist of notes
+            return new ArrayList<>();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //in case of error
+        return null;
+    }
+
+
+    //private methods
+
     /**
      * Get array of Notes
      *
@@ -34,7 +62,6 @@ public class DataSaver {
         try {
             notes = (ArrayList<Note>) objectInputStream.readObject();
         } catch (IOException e) {
-//            e.printStackTrace();
             notes = new ArrayList<>();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -42,7 +69,6 @@ public class DataSaver {
 
         return notes;
     }
-
 
 
     /**
@@ -54,6 +80,7 @@ public class DataSaver {
     private static void saveArrayOfNotes(ArrayList<Note> notes) throws IOException {
         //serializing of our ArrayList of notes
         File notesFile = new File("notes.out");
+        //TODO: W/System.err: java.io.FileNotFoundException: /notes.out: open failed: EROFS (Read-only file system)
         FileOutputStream fos = new FileOutputStream(notesFile);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -61,28 +88,6 @@ public class DataSaver {
         oos.flush();
         oos.close();
 
-    }
-
-//todo: comments
-    public static void saveNotes(ArrayList<Note> notes) {
-        try {
-            saveArrayOfNotes(notes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static ArrayList<Note> loadSavedNotes(ArrayList<Note> notes) {
-        try {
-            //if there are saved notes
-            notes = getArrayOfNotes();
-        } catch (IOException e) {
-            //if there is no this file - create new arraylist of notes
-            notes = new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return notes;
     }
 
 }

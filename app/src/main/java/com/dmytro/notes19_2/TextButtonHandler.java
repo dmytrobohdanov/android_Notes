@@ -16,11 +16,10 @@ public class TextButtonHandler {
     private Button makeNewNote;
     private Activity activity;
 
-    //pointer to arraylist of notes
-    private ArrayList<Note> notes;
+    NotesKeeper notesKeeper;
 
-    TextButtonHandler(final Activity activity, final ArrayList<Note> notes) {
-        this.notes = notes;
+    TextButtonHandler(final Activity activity) {
+        notesKeeper = NotesKeeper.getInstance();
         makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
 
         makeNewNote.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +34,7 @@ public class TextButtonHandler {
             @Override
             public void onClick(View v) {
                 Note newNote = new Note("");
-                notes.add(newNote);
+                notesKeeper.add(newNote);
                 ViewCreator viewCreator = new ViewCreator(activity, newNote);
                 viewCreator.changeToEditText(activity);
             }
