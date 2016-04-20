@@ -2,14 +2,12 @@ package com.dmytro.notes19_2;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-
 import java.util.Random;
 
 
 /**
  * Note is class for keeping notes
  * each note has id, color, text
- * todo: add date and time for note
  */
 
 public class Note {
@@ -17,9 +15,7 @@ public class Note {
     private static int idGenerator = 0;
 
     //array of note's colors
-    private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102),
-            Color.rgb(255, 110, 110), Color.rgb(249, 136, 238), Color.rgb(168, 163, 242),
-            Color.rgb(255, 255, 153)};
+    private final int[] colors = {Color.rgb(64, 249, 138), Color.rgb(255, 255, 102)};
 
     //note's id
     private int id;
@@ -116,11 +112,9 @@ public class Note {
     //private methods
 
     /**
-     * setting background color
+     * sets random background color (from array) for note
      */
     private void setBackgroundColorOfNote() {
-        //temporary method
-        //TODO: rewrite this method. Should set colors in turn, not random
         Random rnd = new Random();
 //        getting random color from array of colors
         colorOfNote = colors[Math.abs(rnd.nextInt()) % colors.length];

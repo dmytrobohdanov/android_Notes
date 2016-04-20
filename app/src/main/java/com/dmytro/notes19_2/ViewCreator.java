@@ -16,11 +16,12 @@ import android.widget.ViewSwitcher;
  * ask for note should be shown
  * and adds it to specified layout
  */
-//todo change layout naming and usage
 public class ViewCreator {
-    String textOfNote;
-    int colorOfNote;
-    int id;
+
+    private int layoutId = R.id.layout_notesKeeper;
+    private String textOfNote;
+    private int colorOfNote;
+    private int id;
 
     //Note's text keepers
     private ViewSwitcher vs;
@@ -39,7 +40,7 @@ public class ViewCreator {
      */
     ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
-        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout1);
+        LinearLayout layout = (LinearLayout) activity.findViewById(layoutId);
         /**
          * checking is this note text/from voice or a photo note
          * if bitmap is null so it is text/voice note and we create TextView(ViewSwitcher)

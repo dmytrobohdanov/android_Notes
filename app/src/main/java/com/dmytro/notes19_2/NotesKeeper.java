@@ -52,6 +52,9 @@ public class NotesKeeper {
         return notes;
     }
 
+    /**
+     * Saving notes to disk
+     */
     public void saveAllNotesToDisk() {
         DataSaver.saveNotes(notes);
     }

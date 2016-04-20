@@ -18,8 +18,11 @@ public class DataSaver {
 
     //public methods
 
-
-    //todo: comments
+    /**
+     * Public method for saving notes to disk
+     *
+     * @param notes array of notes
+     */
     public static void saveNotes(ArrayList<Note> notes) {
         try {
             saveArrayOfNotes(notes);
@@ -29,6 +32,12 @@ public class DataSaver {
     }
 
 
+    /**
+     * Returns  new array for notes if there wasn't saved notes
+     * or array of saved notes
+     *
+     * @return array of notes
+     */
     public static ArrayList<Note> loadSavedNotes() {
         try {
             //if there are saved notes
