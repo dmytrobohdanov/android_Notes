@@ -1,6 +1,7 @@
 package com.dmytro.notes19_2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,11 +132,7 @@ public class ViewCreator {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo change next 2 lines to changeToEditText()
-                editText.setText(textOfNote);
-                vs.showNext();
-                editText.requestFocus();
-                showKeyboard(activity);
+                changeToEditText(activity);
             }
         });
     }
@@ -168,10 +165,10 @@ public class ViewCreator {
     /**
      * Shows keyboard to edit and add text
      *
-     * @param activity
+     * @param activity current activity
      */
     private void showKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 }
