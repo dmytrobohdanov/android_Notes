@@ -2,7 +2,11 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import java.io.File;
+
 /**
  * ViewCreator
  * ask for note should be shown
@@ -19,7 +25,7 @@ import android.widget.ViewSwitcher;
  */
 public class ViewCreator {
 
-    private int layoutId = R.id.layout_notesKeeper;
+    private int layoutId = R.id.layoutNotesKeeper;
     private String textOfNote;
     private int colorOfNote;
     private int id;
@@ -41,20 +47,21 @@ public class ViewCreator {
      */
     ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
-        LinearLayout layout = (LinearLayout) activity.findViewById(layoutId);
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
+
         /**
          * checking is this note text/from voice or a photo note
          * if bitmap is null so it is text/voice note and we create TextView(ViewSwitcher)
          * else it's photo note and we creating ImageView
          */
-        if (note.bitmap == null) {
+        if (note.photoFile == null) {
             this.colorOfNote = note.getColor();
             this.textOfNote = note.getText();
 
             createViewSwitcher(activity);
             layout.addView(vs);
         } else {
-            imageNote = createImageNote(activity, note.bitmap);
+            imageNote = createImageNote(activity, note.photoFile);
             layout.addView(imageNote);
         }
     }
@@ -64,17 +71,40 @@ public class ViewCreator {
      * and adds it to layout
      *
      * @param activity current
-     * @param bitmap   image of note
+     * @param photofile image of note
      */
-    private ImageView createImageNote(Activity activity, Bitmap bitmap) {
+    private ImageView createImageNote(final Activity activity, final File photofile) {
         ImageView imageNote = new ImageView(activity);
-        imageNote.setImageBitmap(bitmap);
-        imageNote.setPadding(0, 10, 0, 1);
 
+        //todo: do something with width and height
+        int width = 350;
+        int height = 280;
+
+        //get preview from URI
+        Bitmap bitmap = ThumbnailUtils.extractThumbnail(
+                BitmapFactory.decodeFile(photofile.getPath()),width, height);
+
+        //set image to ImageView
+        imageNote.setImageBitmap(bitmap);
+
+        //set parameters to view
+        imageNote.setPadding(0, 10, 0, 1);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 10);
+
         imageNote.setLayoutParams(layoutParams);
+
+        //set onCLick listener
+        //onClick open photo to full screen
+        imageNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(photofile), "image/*");
+                activity.startActivity(intent);
+            }
+        });
 
         return imageNote;
     }

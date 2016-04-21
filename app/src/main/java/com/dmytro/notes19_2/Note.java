@@ -2,6 +2,8 @@ package com.dmytro.notes19_2;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+
+import java.io.File;
 import java.util.Random;
 
 
@@ -23,7 +25,8 @@ public class Note {
     private String textOfNote;
 
     //for photo note
-    Bitmap bitmap = null;
+    File photoFile = null;
+//    Bitmap bitmap = null;
 
     /**
      * Constructor
@@ -37,15 +40,26 @@ public class Note {
         setText(text);
     }
 
+//    /**
+//     * constructor
+//     * for photo notes
+//     *
+//     * @param bitmap - image from camera
+//     */
+//    public Note(Bitmap bitmap) {
+//        setID();
+//        this.bitmap = bitmap;
+//        setText(null);
+//    }
+
     /**
-     * constructor
-     * for photo notes
+     * Constructor of photo note
      *
-     * @param bitmap - image from camera
+     * @param photoFile keeps file with photo
      */
-    public Note(Bitmap bitmap) {
+    public Note(File photoFile) {
         setID();
-        this.bitmap = bitmap;
+        this.photoFile = photoFile;
         setText(null);
     }
 

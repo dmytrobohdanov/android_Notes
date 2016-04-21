@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    public static ArrayList<Note> notes;
     NotesKeeper notesKeeper;
+    PhotoButtonHandler photoButtonHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         SpeechHandler speechHandler = new SpeechHandler(this);
         VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
 
-        PhotoButtonHandler photoButtonHandler = new PhotoButtonHandler(this);
+        photoButtonHandler = new PhotoButtonHandler(this);
     }
 
 
@@ -69,16 +70,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//todo remove from here
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            Note newNote = new Note(imageBitmap);
-            notesKeeper.add(newNote);
-            ViewCreator viewCreator = new ViewCreator(this, newNote);
-        }
+        photoButtonHandler.handleResult(requestCode, resultCode, data);
+
     }
 
 }
