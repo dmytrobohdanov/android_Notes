@@ -26,6 +26,7 @@ import java.io.File;
 public class ViewCreator {
 
     private int layoutId = R.id.layoutNotesKeeper;
+    Note note;
     private String textOfNote;
     private int colorOfNote;
     private int id;
@@ -47,6 +48,7 @@ public class ViewCreator {
      */
     ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
+        this.note = note;
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
 
         /**
@@ -184,6 +186,7 @@ public class ViewCreator {
                     //todo write showTextView, handling situation when TextView is already shown
                     textOfNote = editText.getText().toString();
                     textView.setText(textOfNote);
+                    note.setText(textOfNote); //todo not good, need to rewrite
                     vs.showPrevious();
                 }
             }
