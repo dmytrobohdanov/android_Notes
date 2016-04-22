@@ -65,7 +65,9 @@ public class DataSaver {
     private static ArrayList<Note> getArrayOfNotes() throws IOException, ClassNotFoundException {
         ArrayList<Note> notes = null;
 
-        FileInputStream fileInputStream = new FileInputStream("notes.out");
+        File notesFile = new File(android.os.Environment.getExternalStorageDirectory(), "notes.out");
+        FileInputStream fileInputStream = new FileInputStream(notesFile);
+//        FileInputStream fileInputStream = new FileInputStream("notes.out");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
         try {
@@ -88,7 +90,7 @@ public class DataSaver {
      */
     private static void saveArrayOfNotes(ArrayList<Note> notes) throws IOException {
         //serializing of our ArrayList of notes
-        File notesFile = new File("notes.out");
+        File notesFile = new File(android.os.Environment.getExternalStorageDirectory(), "notes.out");
         //TODO: W/System.err: java.io.FileNotFoundException: /notes.out: open failed: EROFS (Read-only file system)
         FileOutputStream fos = new FileOutputStream(notesFile);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

@@ -1,18 +1,21 @@
 package com.dmytro.notes19_2;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 
+import android.app.Activity;
+import android.graphics.Color;
 import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 
 /**
  * Note is class for keeping notes
- * each note has id, color, text
+ * each note has either id, color, text
+ * or id, photo
  */
 
-public class Note {
+public class Note implements Serializable {
     //keeps last added note's id
     private static int idGenerator = 0;
 
@@ -40,17 +43,6 @@ public class Note {
         setText(text);
     }
 
-//    /**
-//     * constructor
-//     * for photo notes
-//     *
-//     * @param bitmap - image from camera
-//     */
-//    public Note(Bitmap bitmap) {
-//        setID();
-//        this.bitmap = bitmap;
-//        setText(null);
-//    }
 
     /**
      * Constructor of photo note
@@ -93,6 +85,29 @@ public class Note {
         return colorOfNote;
     }
 
+    //public static methods
+
+    /**
+     * Draw all notes in array,
+     * if they haven't drawn yet
+     *
+     * @param activity we are working with
+     * @param notes array of notes need to be drawn
+     */
+    public static void drawNotes(Activity activity, ArrayList<Note> notes){
+        //null-array handler
+        if(notes == null) { return; }
+
+        //check are there any notes on the layout
+        //if no - draw all notes
+        if (activity.findViewById(notes.get(0).getID()) == null){
+            for(Note note: notes){
+                ViewCreator viewCreator = new ViewCreator(activity, note);
+            }
+        }
+   }
+
+
     /**
      * Set idGenerator - the variable thats sets our id initialization
      *
@@ -103,7 +118,6 @@ public class Note {
         idGenerator = lastId;
     }
 
-
     /**
      * needs fo manual (outside of constructor) changing of the text of note
      *
@@ -113,6 +127,7 @@ public class Note {
         this.textOfNote = text;
     }
 
+
     /**
      * Needs for manual (outside of constructor) changing of color of note
      *
@@ -121,7 +136,6 @@ public class Note {
     public void setColor(int color) {
         this.colorOfNote = color;
     }
-
 
     //private methods
 

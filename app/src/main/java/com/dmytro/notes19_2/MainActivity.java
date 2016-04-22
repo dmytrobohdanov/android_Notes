@@ -33,22 +33,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        notes = DataSaver.loadSavedNotes(notes);
         notesKeeper = NotesKeeper.getInstance();
+        Note.drawNotes(this, notesKeeper.getAllNotes());
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-//        notes = DataSaver.loadSavedNotes(notes);
         notesKeeper = NotesKeeper.getInstance();
+        Note.drawNotes(this, notesKeeper.getAllNotes());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        notes = DataSaver.loadSavedNotes(notes);
         notesKeeper = NotesKeeper.getInstance();
+        Note.drawNotes(this, notesKeeper.getAllNotes());
     }
 
     @Override
