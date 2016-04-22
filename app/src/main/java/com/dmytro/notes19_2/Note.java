@@ -3,6 +3,8 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.widget.LinearLayout;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -95,6 +97,9 @@ public class Note implements Serializable {
      * @param notes array of notes need to be drawn
      */
     public static void drawNotes(Activity activity, ArrayList<Note> notes){
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
+        layout.removeAllViews();
+
         //null-array handler
         if(notes == null) { return; }
 
@@ -104,6 +109,10 @@ public class Note implements Serializable {
             for(Note note: notes){
                 ViewCreator viewCreator = new ViewCreator(activity, note);
             }
+//            int notesSize = notes.size();
+//            for(int i = notesSize - 1; i >= 0; i--){
+//                ViewCreator viewCreator = new ViewCreator(activity, notes.get(i));
+//            }
         }
    }
 

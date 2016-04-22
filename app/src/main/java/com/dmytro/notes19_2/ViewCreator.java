@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -61,10 +62,10 @@ public class ViewCreator {
             this.textOfNote = note.getText();
 
             createViewSwitcher(activity);
-            layout.addView(vs);
+            layout.addView(vs, 0);
         } else {
             imageNote = createImageNote(activity, note.photoFile);
-            layout.addView(imageNote);
+            layout.addView(imageNote, 0);
         }
     }
 
@@ -108,6 +109,12 @@ public class ViewCreator {
             }
         });
 
+//        imageNote.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return false;
+//            }
+//        });
         return imageNote;
     }
 
