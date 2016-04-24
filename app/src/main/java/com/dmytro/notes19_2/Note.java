@@ -97,11 +97,12 @@ public class Note implements Serializable {
      * @param notes array of notes need to be drawn
      */
     public static void drawNotes(Activity activity, ArrayList<Note> notes){
+        //todo: move this  method to NoteKeeper
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
         layout.removeAllViews();
 
-        //null-array handler
-        if(notes == null) { return; }
+        //null and empty array handler
+        if(notes == null || notes.size() == 0) { return; }
 
         //check are there any notes on the layout
         //if no - draw all notes
@@ -109,10 +110,6 @@ public class Note implements Serializable {
             for(Note note: notes){
                 ViewCreator viewCreator = new ViewCreator(activity, note);
             }
-//            int notesSize = notes.size();
-//            for(int i = notesSize - 1; i >= 0; i--){
-//                ViewCreator viewCreator = new ViewCreator(activity, notes.get(i));
-//            }
         }
    }
 

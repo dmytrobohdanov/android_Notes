@@ -39,7 +39,7 @@ public class NotesKeeper {
      *
      * @param note has to be removed
      */
-    public void remove(Note note) {
+    public static void remove(Note note) {
         notes.remove(note);
     }
 

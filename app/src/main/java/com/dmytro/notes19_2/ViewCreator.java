@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import java.io.File;
 
 /**
@@ -25,9 +26,9 @@ import java.io.File;
  * and adds it to specified layout
  */
 public class ViewCreator {
-
     private int layoutId = R.id.layoutNotesKeeper;
-    Note note;
+    private Activity activity;
+    private Note note;
     private String textOfNote;
     private int colorOfNote;
     private int id;
@@ -49,8 +50,10 @@ public class ViewCreator {
      */
     ViewCreator(Activity activity, Note note) {
         this.id = note.getID();
+        this.activity = activity;
         this.note = note;
-        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
+
+        LinearLayout layout = (LinearLayout) activity.findViewById(layoutId);
 
         /**
          * checking is this note text/from voice or a photo note
@@ -115,6 +118,7 @@ public class ViewCreator {
 //                return false;
 //            }
 //        });
+        setSwipeListener(imageNote, activity);
         return imageNote;
     }
 
@@ -146,12 +150,15 @@ public class ViewCreator {
         layoutParams.setMargins(0, 10, 0, 10);
         vs.setLayoutParams(layoutParams);
 
-
+        //add TextView to VS
         createTextView(activity);
         vs.addView(textView);
-
+        //add EditText to VS
         createEditText(activity);
         vs.addView(editText);
+
+        //set swipe listener
+        setSwipeListener(vs, activity);
     }
 
     /**
@@ -210,5 +217,19 @@ public class ViewCreator {
     private void showKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
+    }
+
+    public void setSwipeListener (View view, Activity activity){
+        view.setOnTouchListener(new OnSwipeTouchListener(activity) {
+            @Override
+            public void onSwipeRight() {
+                deleteNote(note);
+            }
+        });
+    }
+
+    private void deleteNote (Note note){
+        NotesKeeper.remove(note);
+        Note.drawNotes(activity, NotesKeeper.getInstance().getAllNotes());
     }
 }
