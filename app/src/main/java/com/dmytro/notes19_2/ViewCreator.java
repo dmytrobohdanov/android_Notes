@@ -7,9 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -27,6 +24,11 @@ import java.io.File;
  */
 public class ViewCreator {
     private int layoutId = R.id.layoutNotesKeeper;
+    private final String FLAG_TEXTVIEW = "text";
+    private final String FLAG_IMAGEVIEW = "image";
+    private final String FLAG_VIEWSWITCHER = "viewSwitcher";
+    private final String FLAG_EDITTEXT = "editText";
+
     private Activity activity;
     private Note note;
     private String textOfNote;
@@ -40,6 +42,8 @@ public class ViewCreator {
 
     //Note's photo keeper
     ImageView imageNote;
+    protected Uri IMAGE_URI;
+
 
     /**
      * Constructor of class
@@ -67,6 +71,7 @@ public class ViewCreator {
             createViewSwitcher(activity);
             layout.addView(vs, 0);
         } else {
+            IMAGE_URI = Uri.fromFile(note.photoFile);
             imageNote = createImageNote(activity, note.photoFile);
             layout.addView(imageNote, 0);
         }
@@ -103,22 +108,16 @@ public class ViewCreator {
 
         //set onCLick listener
         //onClick open photo to full screen
-        imageNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(photofile), "image/*");
-                activity.startActivity(intent);
-            }
-        });
-
-//        imageNote.setOnTouchListener(new View.OnTouchListener() {
+//        imageNote.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return false;
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(Uri.fromFile(photofile), "image/*");
+//                activity.startActivity(intent);
 //            }
 //        });
-        setSwipeListener(imageNote, activity);
+
+        setTouchListener(imageNote, activity, FLAG_IMAGEVIEW);
         return imageNote;
     }
 
@@ -158,7 +157,7 @@ public class ViewCreator {
         vs.addView(editText);
 
         //set swipe listener
-        setSwipeListener(vs, activity);
+        setTouchListener(vs, activity, FLAG_VIEWSWITCHER);
     }
 
     /**
@@ -173,14 +172,7 @@ public class ViewCreator {
 
         textView.setTextSize(17);
 
-        //onClick listener. Changing TextView to EditText when clicked
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeToEditText(activity);
-            }
-        });
-        setSwipeListener(textView, activity);
+        setTouchListener(textView, activity, FLAG_TEXTVIEW);
     }
 
     /**
@@ -206,7 +198,7 @@ public class ViewCreator {
             }
         };
         editText.setOnFocusChangeListener(focusChangeListener);
-        setSwipeListener(editText, activity);
+        setTouchListener(editText, activity, FLAG_EDITTEXT);
     }
 
 
@@ -220,13 +212,47 @@ public class ViewCreator {
         imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 
-    public void setSwipeListener (View view, Activity activity){
-        view.setOnTouchListener(new OnSwipeTouchListener(activity) {
-            @Override
-            public void onSwipeRight() {
-                deleteNote(note);
-            }
-        });
+    public void setTouchListener(View view, final Activity activity, String action){
+        //on swipe deletes note
+        //on click show full image
+        if(action.equals(FLAG_IMAGEVIEW)) {
+            view.setOnTouchListener(new OnTouchListener(activity) {
+                @Override
+                public void onSwipeRight() {
+                    deleteNote(note);
+                }
+
+                @Override
+                public void onDownEvent() {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(IMAGE_URI, "image/*");
+                    activity.startActivity(intent);
+                }
+            });
+        }
+
+        if(action.equals(FLAG_EDITTEXT) || action.equals(FLAG_VIEWSWITCHER)){
+            view.setOnTouchListener(new OnTouchListener(activity) {
+                @Override
+                public void onSwipeRight() {
+                    deleteNote(note);
+                }
+            });
+        }
+
+        if (action.equals(FLAG_TEXTVIEW)){
+            view.setOnTouchListener(new OnTouchListener(activity) {
+                @Override
+                public void onSwipeRight() {
+                    deleteNote(note);
+                }
+
+                @Override
+                public void onDownEvent() {
+                   changeToEditText(activity);
+                }
+            });
+        }
     }
 
     private void deleteNote (Note note){

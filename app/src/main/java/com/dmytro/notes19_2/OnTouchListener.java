@@ -10,11 +10,11 @@ import android.view.View;
  * http://stackoverflow.com/questions/4139288/android-how-to-handle-right-to-left-swipe-gestures
  */
 
-public class OnSwipeTouchListener implements View.OnTouchListener {
+public class OnTouchListener implements View.OnTouchListener {
 
     private final GestureDetector gestureDetector;
 
-    public OnSwipeTouchListener (Context ctx){
+    public OnTouchListener(Context ctx){
         gestureDetector = new GestureDetector(ctx, new GestureListener());
     }
 
@@ -28,10 +28,9 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
-        boolean one = true;
-
         @Override
         public boolean onDown(MotionEvent e) {
+            onDownEvent();
             return true;
         }
 
@@ -77,5 +76,8 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     }
 
     public void onSwipeBottom() {
+    }
+
+    public void onDownEvent(){
     }
 }
