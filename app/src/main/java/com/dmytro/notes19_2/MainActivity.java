@@ -1,13 +1,11 @@
 package com.dmytro.notes19_2;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public static ArrayList<Note> notes;
     NotesKeeper notesKeeper;
     PhotoButtonHandler photoButtonHandler;
 

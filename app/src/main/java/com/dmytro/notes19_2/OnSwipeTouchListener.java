@@ -28,6 +28,8 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
+        boolean one = true;
+
         @Override
         public boolean onDown(MotionEvent e) {
             return true;

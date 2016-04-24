@@ -173,7 +173,6 @@ public class ViewCreator {
 
         textView.setTextSize(17);
 
-
         //onClick listener. Changing TextView to EditText when clicked
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +180,7 @@ public class ViewCreator {
                 changeToEditText(activity);
             }
         });
+        setSwipeListener(textView, activity);
     }
 
     /**
@@ -206,6 +206,7 @@ public class ViewCreator {
             }
         };
         editText.setOnFocusChangeListener(focusChangeListener);
+        setSwipeListener(editText, activity);
     }
 
 
