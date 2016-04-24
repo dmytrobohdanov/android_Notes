@@ -57,7 +57,6 @@ public class PhotoButtonHandler extends Activity {
 //    public handler of onResult
 
 
-
     /**
      * Creating file for image
      *
@@ -91,7 +90,7 @@ public class PhotoButtonHandler extends Activity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(mainActivity.getPackageManager()) != null) {
             // Create the File where the photo should go
-           photoFile = null;
+            photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -105,7 +104,7 @@ public class PhotoButtonHandler extends Activity {
                 mainActivity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
 
- }
+        }
     }
 
     /**
@@ -141,7 +140,7 @@ public class PhotoButtonHandler extends Activity {
 //    }
 
 
-    //rewrite
+//rewrite
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 //            Bundle extras = data.getExtras();

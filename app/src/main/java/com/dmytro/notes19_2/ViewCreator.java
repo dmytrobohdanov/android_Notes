@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
 import java.io.File;
 
 /**
@@ -81,7 +82,7 @@ public class ViewCreator {
      * creating ImageNote
      * and adds it to layout
      *
-     * @param activity current
+     * @param activity  current
      * @param photofile image of note
      */
     private ImageView createImageNote(final Activity activity, final File photofile) {
@@ -93,7 +94,7 @@ public class ViewCreator {
 
         //get preview from URI
         Bitmap bitmap = ThumbnailUtils.extractThumbnail(
-                BitmapFactory.decodeFile(photofile.getPath()),width, height);
+                BitmapFactory.decodeFile(photofile.getPath()), width, height);
 
         //set image to ImageView
         imageNote.setImageBitmap(bitmap);
@@ -212,10 +213,10 @@ public class ViewCreator {
         imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 
-    public void setTouchListener(View view, final Activity activity, String action){
+    public void setTouchListener(View view, final Activity activity, String action) {
         //on swipe deletes note
         //on click show full image
-        if(action.equals(FLAG_IMAGEVIEW)) {
+        if (action.equals(FLAG_IMAGEVIEW)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -231,7 +232,7 @@ public class ViewCreator {
             });
         }
 
-        if(action.equals(FLAG_EDITTEXT) || action.equals(FLAG_VIEWSWITCHER)){
+        if (action.equals(FLAG_EDITTEXT) || action.equals(FLAG_VIEWSWITCHER)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -240,7 +241,7 @@ public class ViewCreator {
             });
         }
 
-        if (action.equals(FLAG_TEXTVIEW)){
+        if (action.equals(FLAG_TEXTVIEW)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -249,13 +250,13 @@ public class ViewCreator {
 
                 @Override
                 public void onDownEvent() {
-                   changeToEditText(activity);
+                    changeToEditText(activity);
                 }
             });
         }
     }
 
-    private void deleteNote (Note note){
+    private void deleteNote(Note note) {
         NotesKeeper.remove(note);
         Note.drawNotes(activity, NotesKeeper.getInstance().getAllNotes());
     }

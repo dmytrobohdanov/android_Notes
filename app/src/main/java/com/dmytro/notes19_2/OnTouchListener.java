@@ -7,6 +7,7 @@ import android.view.View;
 
 /**
  * Swipe Listener
+ * know events: onDown and onSwipe right, left, top, bottom
  * http://stackoverflow.com/questions/4139288/android-how-to-handle-right-to-left-swipe-gestures
  */
 
@@ -14,7 +15,7 @@ public class OnTouchListener implements View.OnTouchListener {
 
     private final GestureDetector gestureDetector;
 
-    public OnTouchListener(Context ctx){
+    public OnTouchListener(Context ctx) {
         gestureDetector = new GestureDetector(ctx, new GestureListener());
     }
 
@@ -49,8 +50,7 @@ public class OnTouchListener implements View.OnTouchListener {
                         }
                     }
                     result = true;
-                }
-                else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeBottom();
                     } else {
@@ -78,6 +78,6 @@ public class OnTouchListener implements View.OnTouchListener {
     public void onSwipeBottom() {
     }
 
-    public void onDownEvent(){
+    public void onDownEvent() {
     }
 }

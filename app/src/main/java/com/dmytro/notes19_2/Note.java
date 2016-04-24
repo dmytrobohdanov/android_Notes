@@ -94,24 +94,26 @@ public class Note implements Serializable {
      * if they haven't drawn yet
      *
      * @param activity we are working with
-     * @param notes array of notes need to be drawn
+     * @param notes    array of notes need to be drawn
      */
-    public static void drawNotes(Activity activity, ArrayList<Note> notes){
+    public static void drawNotes(Activity activity, ArrayList<Note> notes) {
         //todo: move this  method to NoteKeeper
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
         layout.removeAllViews();
 
         //null and empty array handler
-        if(notes == null || notes.size() == 0) { return; }
+        if (notes == null || notes.size() == 0) {
+            return;
+        }
 
         //check are there any notes on the layout
         //if no - draw all notes
-        if (activity.findViewById(notes.get(0).getID()) == null){
-            for(Note note: notes){
+        if (activity.findViewById(notes.get(0).getID()) == null) {
+            for (Note note : notes) {
                 ViewCreator viewCreator = new ViewCreator(activity, note);
             }
         }
-   }
+    }
 
 
     /**
