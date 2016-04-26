@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import java.io.File;
 
 /**
@@ -24,15 +23,20 @@ import java.io.File;
  * and adds it to specified layout
  */
 public class ViewCreator {
+    //layout holds notes
     private int layoutId = R.id.layoutNotesKeeper;
+    //pointer to MainActivity
+    private Activity activity;
+
+    //flags for setting onTouch listeners
     private final String FLAG_TEXTVIEW = "text";
     private final String FLAG_IMAGEVIEW = "image";
     private final String FLAG_VIEWSWITCHER = "viewSwitcher";
     private final String FLAG_EDITTEXT = "editText";
 
-    private Activity activity;
+    //pointer to Note ViewCreator working with
     private Note note;
-    private String textOfNote;
+//    private String textOfNote;
     private int colorOfNote;
     private int id;
 
@@ -67,7 +71,6 @@ public class ViewCreator {
          */
         if (note.photoFile == null) {
             this.colorOfNote = note.getColor();
-            this.textOfNote = note.getText();
 
             createViewSwitcher(activity);
             layout.addView(vs, 0);
@@ -127,7 +130,7 @@ public class ViewCreator {
      * asking current ViewText change TextView To EditText
      */
     public void changeToEditText(Activity activity) {
-        editText.setText(textOfNote);
+        editText.setText(note.getText());
         vs.showNext();
         editText.requestFocus();
         showKeyboard(activity);
@@ -166,7 +169,7 @@ public class ViewCreator {
      */
     private void createTextView(final Activity activity) {
         textView = new TextView(activity);
-        textView.setText(textOfNote);
+        textView.setText(note.getText());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         textView.setLayoutParams(layoutParams);
@@ -191,9 +194,8 @@ public class ViewCreator {
                 //if unfocus EditText field, editText becomes textView again
                 if (!hasFocus) {
                     //todo write showTextView, handling situation when TextView is already shown
-                    textOfNote = editText.getText().toString();
-                    textView.setText(textOfNote);
-                    note.setText(textOfNote); //todo not good, need to rewrite
+                    note.setText(editText.getText().toString());
+                    textView.setText(note.getText());
                     vs.showPrevious();
                 }
             }
@@ -213,10 +215,21 @@ public class ViewCreator {
         imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 
-    public void setTouchListener(View view, final Activity activity, String action) {
+
+    /**
+     * sets onTouchListener to view depending on view type
+     * imageView: onClick show full image
+     * textView: onClick shows editText view
+     * all views: deleting onSwipeRight
+     *
+     * @param view we are working with
+     * @param activity we are working with
+     * @param flag of View type
+     */
+    public void setTouchListener(View view, final Activity activity, String flag) {
         //on swipe deletes note
         //on click show full image
-        if (action.equals(FLAG_IMAGEVIEW)) {
+        if (flag.equals(FLAG_IMAGEVIEW)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -232,7 +245,7 @@ public class ViewCreator {
             });
         }
 
-        if (action.equals(FLAG_EDITTEXT) || action.equals(FLAG_VIEWSWITCHER)) {
+        if (flag.equals(FLAG_EDITTEXT) || flag.equals(FLAG_VIEWSWITCHER)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -241,7 +254,7 @@ public class ViewCreator {
             });
         }
 
-        if (action.equals(FLAG_TEXTVIEW)) {
+        if (flag.equals(FLAG_TEXTVIEW)) {
             view.setOnTouchListener(new OnTouchListener(activity) {
                 @Override
                 public void onSwipeRight() {
@@ -256,6 +269,11 @@ public class ViewCreator {
         }
     }
 
+    /**
+     * deletes specified note
+     *
+     * @param note has to be delete
+     */
     private void deleteNote(Note note) {
         NotesKeeper.remove(note);
         Note.drawNotes(activity, NotesKeeper.getInstance().getAllNotes());

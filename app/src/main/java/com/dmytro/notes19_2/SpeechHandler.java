@@ -28,7 +28,8 @@ public class SpeechHandler implements RecognitionListener {
     //pointer to current activity
     private Activity activity;
 
-    NotesKeeper notesKeeper;
+    //instance of NotesKeeper
+    private NotesKeeper notesKeeper;
 
     private SpeechRecognizer sr;
 

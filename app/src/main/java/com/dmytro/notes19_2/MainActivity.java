@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+
+    /**
+     * processing data from camera
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         photoButtonHandler.handleResult(requestCode, resultCode, data);
