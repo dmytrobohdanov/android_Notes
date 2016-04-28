@@ -2,9 +2,7 @@ package com.dmytro.notes19_2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,7 +18,7 @@ public class PhotoButtonHandler extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //id of button
-    private final int idPhotoButton = R.id.photoButton;
+    private final int idPhotoButton = R.id.addPhotoNoteButton;
 
     //photo path
     private String mCurrentPhotoPath;

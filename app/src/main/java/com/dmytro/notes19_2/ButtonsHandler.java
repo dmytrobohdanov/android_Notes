@@ -1,24 +1,26 @@
 package com.dmytro.notes19_2;
 
+
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
-
-/**
- * Text Button Handler
- * listening onClick of button
- * create new empty Note and displays it
- */
-public class TextButtonHandler {
+public class ButtonsHandler {
     private Button makeNewNote;
     private Activity activity;
 
+    private final int TEXT_BUTTON_ID = R.id.addNoteByTextButton;
+    private final int VOICE_BUTTON_ID = R.id.addVoiceNoteButton;
+    private final int PHOTO_BUTTON_ID = R.id.addPhotoNoteButton;
+
     NotesKeeper notesKeeper;
 
-    TextButtonHandler(final Activity activity) {
+    ButtonsHandler (Activity activity, int ButtonId){
+        setTextButtonHandler(activity, TEXT_BUTTON_ID);
+
+    }
+
+    private void setTextButtonHandler(final Activity activity, int text_button_id) {
         notesKeeper = NotesKeeper.getInstance();
         makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
 
@@ -41,6 +43,5 @@ public class TextButtonHandler {
         });
 
     }
-
 
 }
