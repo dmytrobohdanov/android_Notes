@@ -9,40 +9,39 @@ public class ButtonsHandler {
     private Button makeNewNote;
     private Activity activity;
 
-    private final int TEXT_BUTTON_ID;
+    private final int TEXT_BUTTON_ID = R.id.addNoteByTextButton;
+    private final int VOICE_BUTTON_ID = R.id.addVoiceNoteButton;
+    private final int PHOTO_BUTTON_ID = R.id.addPhotoNoteButton;
 
     NotesKeeper notesKeeper;
 
-    ButtonsHandler (Activity activity, int textButtonId){
-        TEXT_BUTTON_ID = textButtonId;
+    ButtonsHandler (Activity activity, int ButtonId){
         setTextButtonHandler(activity, TEXT_BUTTON_ID);
-    }
-
-    private void setTextButtonHandler(Activity activity, int text_button_id) {
 
     }
 
-//    TextButtonHandler(final Activity activity) {
-//        notesKeeper = NotesKeeper.getInstance();
-//        makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
-//
-//        makeNewNote.setOnClickListener(new View.OnClickListener() {
-//            /**
-//             * Called when a view has been clicked.
-//             * Create new empty Note,
-//             * pass it to ViewCreator
-//             * asks ViewCreator to show EditText
-//             *
-//             * @param v The view that was clicked.
-//             */
-//            @Override
-//            public void onClick(View v) {
-//                Note newNote = new Note("");
-//                notesKeeper.add(newNote);
-//                ViewCreator viewCreator = new ViewCreator(activity, newNote);
-//                viewCreator.changeToEditText(activity);
-//            }
-//        });
-//
-//    }
+    private void setTextButtonHandler(final Activity activity, int text_button_id) {
+        notesKeeper = NotesKeeper.getInstance();
+        makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
+
+        makeNewNote.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when a view has been clicked.
+             * Create new empty Note,
+             * pass it to ViewCreator
+             * asks ViewCreator to show EditText
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                Note newNote = new Note("");
+                notesKeeper.add(newNote);
+                ViewCreator viewCreator = new ViewCreator(activity, newNote);
+                viewCreator.changeToEditText(activity);
+            }
+        });
+
+    }
+
 }

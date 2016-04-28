@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
-        android:background="#94fac2"
+        android:background="#f7e1dd"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/startButtonName"
-            android:id="@+id/startButton"
+            android:id="@+id/addVoiceNoteButton"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
@@ -33,17 +33,17 @@
             android:text="@string/textButtonName"
             android:id="@+id/addNoteByTextButton"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/startButton"
+            android:layout_toStartOf="@+id/addVoiceNoteButton"
             android:layout_marginEnd="29dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/AddPhotoNoteButton"
-            android:id="@+id/photoButton"
+            android:id="@+id/addPhotoNoteButton"
             android:layout_marginStart="29dp"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/startButton" />
+            android:layout_toEndOf="@+id/addVoiceNoteButton" />
 
     </RelativeLayout>
 

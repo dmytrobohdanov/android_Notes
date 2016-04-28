@@ -17,7 +17,7 @@ public class VoiceButtonHandler {
     Button makeNewNote;
 
     public VoiceButtonHandler(Activity activity, SpeechHandler speechHandler) {
-        makeNewNote = (Button) activity.findViewById(R.id.startButton);
+        makeNewNote = (Button) activity.findViewById(R.id.addVoiceNoteButton);
         this.speechHandler = speechHandler;
         assert makeNewNote != null;
         makeNewNote.setOnTouchListener(new View.OnTouchListener() {
