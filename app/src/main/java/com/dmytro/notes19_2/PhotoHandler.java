@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class PhotoButtonHandler extends Activity {
+public class PhotoHandler extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //id of button
@@ -40,16 +40,10 @@ public class PhotoButtonHandler extends Activity {
      *
      * @param activity point to mainActivity
      */
-    PhotoButtonHandler(Activity activity) {
-        photoButton = (Button) activity.findViewById(idPhotoButton);
+    PhotoHandler(Activity activity, NotesKeeper notesKeeper) {
+        photoButton = (Button) activity.findViewById(idPhotoButton);///1
         this.mainActivity = activity;
-        notesKeeper = NotesKeeper.getInstance();
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakePictureIntent();
-            }
-        });
+        this.notesKeeper = notesKeeper;
     }
 
 //    public handler of onResult
@@ -83,7 +77,7 @@ public class PhotoButtonHandler extends Activity {
      * starts camera activity
      * prepares file ready to save image
      */
-    private void dispatchTakePictureIntent() {
+    public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(mainActivity.getPackageManager()) != null) {

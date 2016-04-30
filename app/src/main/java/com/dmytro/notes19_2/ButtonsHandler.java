@@ -17,7 +17,19 @@ public class ButtonsHandler {
 
     ButtonsHandler (Activity activity, int ButtonId){
         setTextButtonHandler(activity, TEXT_BUTTON_ID);
+        setVoiceButtonHandler(activity, VOICE_BUTTON_ID);
+        setPhotoButtonHandler(activity, PHOTO_BUTTON_ID);
+    }
 
+    private void setPhotoButtonHandler(Activity activity, int photo_button_id) {
+        PhotoHandler photoHandler = new PhotoHandler(activity, notesKeeper);
+        Button photoButton = (Button) activity.findViewById(photo_button_id);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoHandler.dispatchTakePictureIntent();
+            }
+        });
     }
 
     private void setTextButtonHandler(final Activity activity, int text_button_id) {
