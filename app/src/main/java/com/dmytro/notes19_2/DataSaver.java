@@ -91,7 +91,6 @@ public class DataSaver {
     private static void saveArrayOfNotes(ArrayList<Note> notes) throws IOException {
         //serializing of our ArrayList of notes
         File notesFile = new File(android.os.Environment.getExternalStorageDirectory(), "notes.out");
-        //TODO: W/System.err: java.io.FileNotFoundException: /notes.out: open failed: EROFS (Read-only file system)
         FileOutputStream fos = new FileOutputStream(notesFile);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 

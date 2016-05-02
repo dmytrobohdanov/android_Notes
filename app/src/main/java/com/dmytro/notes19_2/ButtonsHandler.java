@@ -2,6 +2,7 @@ package com.dmytro.notes19_2;
 
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +31,8 @@ public class ButtonsHandler {
             case PHOTO_BUTTON_ID:
                 setPhotoButtonHandler(activity, PHOTO_BUTTON_ID);
                 break;
-            default: 
-                //todo: error handler
+            default:
+                Log.d("ButtonsHandler", "wrong ID of button");
         }
     }
 
