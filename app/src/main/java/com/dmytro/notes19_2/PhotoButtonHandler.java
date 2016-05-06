@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class PhotoHandler extends Activity {
+public class PhotoButtonHandler extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //id of button
@@ -40,7 +40,7 @@ public class PhotoHandler extends Activity {
      *
      * @param activity point to mainActivity
      */
-    PhotoHandler(Activity activity, NotesKeeper notesKeeper) {
+    PhotoButtonHandler(Activity activity, NotesKeeper notesKeeper) {
         photoButton = (Button) activity.findViewById(idPhotoButton);///1
         this.mainActivity = activity;
         this.notesKeeper = notesKeeper;

@@ -24,7 +24,7 @@ public class OnTouchListener implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+    private final class GestureListener implements GestureDetector.OnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
@@ -33,6 +33,26 @@ public class OnTouchListener implements View.OnTouchListener {
         public boolean onDown(MotionEvent e) {
             onDownEvent();
             return true;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
         }
 
         @Override

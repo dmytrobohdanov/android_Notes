@@ -7,7 +7,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     NotesKeeper notesKeeper;
-    PhotoHandler photoButtonHandler;
+    PhotoButtonHandler photoButtonHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         notesKeeper = NotesKeeper.getInstance();
 
-        SpeechHandler speechHandler = new SpeechHandler(this);
+//        SpeechHandler speechHandler = new SpeechHandler(this);
         ButtonsHandler textButton = new ButtonsHandler(this, R.id.addNoteByTextButton);
         ButtonsHandler voiceButton = new ButtonsHandler(this, R.id.addVoiceNoteButton );
         ButtonsHandler photoButton = new ButtonsHandler(this, R.id.addPhotoNoteButton);
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
 //
-//        photoButtonHandler = new PhotoHandler(this);
+//        photoButtonHandler = new PhotoButtonHandler(this);
     }
 
 
