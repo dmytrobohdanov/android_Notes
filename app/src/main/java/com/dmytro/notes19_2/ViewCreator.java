@@ -240,7 +240,7 @@ public class ViewCreator {
                 }
 
                 @Override
-                public void onDownEvent() {
+                public void onClickEvent() {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(IMAGE_URI, "image/*");
                     activity.startActivity(intent);
@@ -265,7 +265,7 @@ public class ViewCreator {
                 }
 
                 @Override
-                public void onDownEvent() {
+                public void onClickEvent() {
                     changeToEditText(activity);
                 }
             });

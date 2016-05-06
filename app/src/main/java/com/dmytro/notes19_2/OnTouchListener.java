@@ -31,8 +31,9 @@ public class OnTouchListener implements View.OnTouchListener {
 
         @Override
         public boolean onDown(MotionEvent e) {
-            onDownEvent();
+            onClickEvent();
             return true;
+//            return false;
         }
 
         @Override
@@ -42,6 +43,7 @@ public class OnTouchListener implements View.OnTouchListener {
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
+//            onClickEvent();
             return false;
         }
 
@@ -98,6 +100,6 @@ public class OnTouchListener implements View.OnTouchListener {
     public void onSwipeBottom() {
     }
 
-    public void onDownEvent() {
+    public void onClickEvent() {
     }
 }
