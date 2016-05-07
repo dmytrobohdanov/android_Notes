@@ -6,8 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Swipe Listener
- * know events: onDown and onSwipe right, left, top, bottom
+ * Listening events with notes
+ * know events: onTap and onSwipe right, left, top, bottom
+ * based on Gesture Listener and
  * http://stackoverflow.com/questions/4139288/android-how-to-handle-right-to-left-swipe-gestures
  */
 
@@ -24,37 +25,20 @@ public class OnTouchListener implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    private final class GestureListener implements GestureDetector.OnGestureListener {
+    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
         @Override
         public boolean onDown(MotionEvent e) {
-            onClickEvent();
             return true;
-//            return false;
         }
 
         @Override
-        public void onShowPress(MotionEvent e) {
-
-        }
-
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-//            onClickEvent();
-            return false;
-        }
-
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            return false;
-        }
-
-        @Override
-        public void onLongPress(MotionEvent e) {
-
+        public boolean onSingleTapConfirmed(MotionEvent e){
+            onTapEvent();
+            return true;
         }
 
         @Override
@@ -100,6 +84,6 @@ public class OnTouchListener implements View.OnTouchListener {
     public void onSwipeBottom() {
     }
 
-    public void onClickEvent() {
+    public void onTapEvent() {
     }
 }
