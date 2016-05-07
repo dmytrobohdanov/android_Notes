@@ -16,15 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
         notesKeeper = NotesKeeper.getInstance();
 
-//        SpeechHandler speechHandler = new SpeechHandler(this);
         ButtonsHandler textButton = new ButtonsHandler(this, R.id.addNoteByTextButton);
-        ButtonsHandler voiceButton = new ButtonsHandler(this, R.id.addVoiceNoteButton );
+        ButtonsHandler voiceButton = new ButtonsHandler(this, R.id.addVoiceNoteButton);
         ButtonsHandler photoButton = new ButtonsHandler(this, R.id.addPhotoNoteButton);
-
-
-//        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
-//
-//        photoButtonHandler = new PhotoButtonHandler(this);
+        photoButtonHandler = photoButton.getPhotoButtonHandlerInstance();
     }
 
 
@@ -56,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         photoButtonHandler.handleResult(requestCode, resultCode, data);
-
     }
-
 }
 
