@@ -107,7 +107,7 @@ public class SpeechHandler implements RecognitionListener {
     /**
      * get results of recognition
      *
-     * @param results //todo
+     * @param results of recognition
      */
     private void receiveResults(Bundle results) {
         if ((results != null)

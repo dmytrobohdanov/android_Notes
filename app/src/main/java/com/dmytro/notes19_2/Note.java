@@ -97,7 +97,6 @@ public class Note implements Serializable {
      * @param notes    array of notes need to be drawn
      */
     public static void drawNotes(Activity activity, ArrayList<Note> notes) {
-        //todo: move this  method to NoteKeeper
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layoutNotesKeeper);
         layout.removeAllViews();
 
@@ -121,7 +120,7 @@ public class Note implements Serializable {
      *
      * @param lastId - the id of the last note in our list
      */
-    //todo here could be problem: should find out how works id adding after app reboot
+    //todo here could be problem: should find out how works id adding after app reboot in case of DB
     public static void setIdGenerator(int lastId) {
         idGenerator = lastId;
     }

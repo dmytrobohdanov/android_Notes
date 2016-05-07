@@ -16,12 +16,15 @@ public class MainActivity extends AppCompatActivity {
 
         notesKeeper = NotesKeeper.getInstance();
 
-        TextButtonHandler textButtonHandler = new TextButtonHandler(this);
+//        SpeechHandler speechHandler = new SpeechHandler(this);
+        ButtonsHandler textButton = new ButtonsHandler(this, R.id.addNoteByTextButton);
+        ButtonsHandler voiceButton = new ButtonsHandler(this, R.id.addVoiceNoteButton );
+        ButtonsHandler photoButton = new ButtonsHandler(this, R.id.addPhotoNoteButton);
 
-        SpeechHandler speechHandler = new SpeechHandler(this);
-        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
 
-        photoButtonHandler = new PhotoButtonHandler(this);
+//        VoiceButtonHandler voiceButtonHandler = new VoiceButtonHandler(this, speechHandler);
+//
+//        photoButtonHandler = new PhotoButtonHandler(this);
     }
 
 

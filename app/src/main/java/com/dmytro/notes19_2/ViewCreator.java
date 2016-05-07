@@ -46,8 +46,11 @@ public class ViewCreator {
     private TextView textView;
 
     //Note's photo keeper
-    ImageView imageNote;
+    private ImageView imageNote;
     protected Uri IMAGE_URI;
+    //todo make flexible size
+    private final int IMAGE_WIDTH = 350;
+    private final int IMAGE_HEIGHT = 280;
 
 
     /**
@@ -91,9 +94,8 @@ public class ViewCreator {
     private ImageView createImageNote(final Activity activity, final File photofile) {
         ImageView imageNote = new ImageView(activity);
 
-        //todo: do something with width and height
-        int width = 350;
-        int height = 280;
+        int width = IMAGE_WIDTH;
+        int height = IMAGE_HEIGHT;
 
         //get preview from URI
         Bitmap bitmap = ThumbnailUtils.extractThumbnail(
