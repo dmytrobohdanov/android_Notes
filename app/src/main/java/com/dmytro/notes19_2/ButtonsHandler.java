@@ -11,17 +11,18 @@ public class ButtonsHandler {
     private Button makeNewNote;
     private Activity activity;
     private SpeechHandler speechHandler;
-    
+    private PhotoButtonHandler photoHandler;
+
     private final int TEXT_BUTTON_ID = R.id.addNoteByTextButton;
     private final int VOICE_BUTTON_ID = R.id.addVoiceNoteButton;
     private final int PHOTO_BUTTON_ID = R.id.addPhotoNoteButton;
 
     NotesKeeper notesKeeper;
 
-    ButtonsHandler (Activity activity, int buttonId){
+    ButtonsHandler(Activity activity, int buttonId) {
         this.activity = activity;
-        
-        switch (buttonId){
+
+        switch (buttonId) {
             case TEXT_BUTTON_ID:
                 setTextButtonHandler(activity, TEXT_BUTTON_ID);
                 break;
@@ -38,7 +39,7 @@ public class ButtonsHandler {
 
     private void setVoiceButtonHandler(Activity activity, int voice_button_id) {
         speechHandler = new SpeechHandler(activity);
-        
+
         makeNewNote = (Button) activity.findViewById(voice_button_id);
         assert makeNewNote != null;
         makeNewNote.setOnTouchListener(new View.OnTouchListener() {
@@ -69,17 +70,11 @@ public class ButtonsHandler {
     private void stopSpeech() {
         speechHandler.stopListening();
     }
-    
+
 
     private void setPhotoButtonHandler(Activity activity, int photo_button_id) {
-        final PhotoButtonHandler photoHandler = new PhotoButtonHandler(activity, notesKeeper);
-        Button photoButton = (Button) activity.findViewById(photo_button_id);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                photoHandler.dispatchTakePictureIntent();
-            }
-        });
+        photoHandler = new PhotoButtonHandler(activity, photo_button_id);
+
     }
 
     private void setTextButtonHandler(final Activity activity, int text_button_id) {
@@ -106,4 +101,7 @@ public class ButtonsHandler {
 
     }
 
+    public PhotoButtonHandler getPhotoButtonHandlerInstance() {
+        return photoHandler;
+    }
 }

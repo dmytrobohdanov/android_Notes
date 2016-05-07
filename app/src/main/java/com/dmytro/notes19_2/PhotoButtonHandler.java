@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,7 +19,7 @@ public class PhotoButtonHandler extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //id of button
-    private final int idPhotoButton = R.id.addPhotoNoteButton;
+    private final int idPhotoButton;
 
     //photo path
     private String mCurrentPhotoPath;
@@ -40,10 +41,18 @@ public class PhotoButtonHandler extends Activity {
      *
      * @param activity point to mainActivity
      */
-    PhotoButtonHandler(Activity activity, NotesKeeper notesKeeper) {
+    PhotoButtonHandler(Activity activity, int photoButonId) {
+        this.idPhotoButton = photoButonId;
         photoButton = (Button) activity.findViewById(idPhotoButton);///1
         this.mainActivity = activity;
-        this.notesKeeper = notesKeeper;
+        this.notesKeeper = NotesKeeper.getInstance();
+        Button photoButton = (Button) activity.findViewById(idPhotoButton);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
     }
 
 //    public handler of onResult
