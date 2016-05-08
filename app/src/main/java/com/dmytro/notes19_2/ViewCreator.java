@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import java.io.File;
-
 /**
  * ViewCreator
  * ask for note should be shown
@@ -48,7 +46,8 @@ public class ViewCreator {
 
     //Note's photo keeper
     private ImageView imageNote;
-    protected Uri IMAGE_URI;
+//    protected Uri IMAGE_URI;
+
     //todo make flexible size
     private final int IMAGE_WIDTH = 350;
     private final int IMAGE_HEIGHT = 280;
@@ -79,8 +78,6 @@ public class ViewCreator {
             createViewSwitcher(activity);
             layout.addView(vs, 0);
         } else {
-//            IMAGE_URI = Uri.fromFile(note.photoFilePath);
-//            IMAGE_URI = Uri.parse(note.photoFilePath);
             imageNote = createImageNote(activity, note.photoFilePath);
             layout.addView(imageNote, 0);
         }
@@ -113,17 +110,6 @@ public class ViewCreator {
         layoutParams.setMargins(0, 10, 0, 10);
 
         imageNote.setLayoutParams(layoutParams);
-
-        //set onCLick listener
-        //onClick open photo to full screen
-//        imageNote.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                intent.setDataAndType(Uri.fromFile(photofile), "image/*");
-//                activity.startActivity(intent);
-//            }
-//        });
 
         setTouchListener(imageNote, activity, FLAG_IMAGEVIEW);
         return imageNote;
@@ -243,7 +229,7 @@ public class ViewCreator {
                 @Override
                 public void onTapEvent() {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(IMAGE_URI, "image/*");
+//                    intent.setDataAndType(IMAGE_URI, "image/*");
                     activity.startActivity(intent);
                 }
             });
