@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
 import java.io.File;
 
 /**
@@ -36,7 +37,7 @@ public class ViewCreator {
 
     //pointer to Note ViewCreator working with
     private Note note;
-//    private String textOfNote;
+    //    private String textOfNote;
     private int colorOfNote;
     private int id;
 
@@ -73,14 +74,15 @@ public class ViewCreator {
          * if bitmap is null so it is text/voice note and we create TextView(ViewSwitcher)
          * else it's photo note and we creating ImageView
          */
-        if (note.photoFile == null) {
+        if (note.photoFilePath == null) {
             this.colorOfNote = note.getColor();
 
             createViewSwitcher(activity);
             layout.addView(vs, 0);
         } else {
-            IMAGE_URI = Uri.fromFile(note.photoFile);
-            imageNote = createImageNote(activity, note.photoFile);
+//            IMAGE_URI = Uri.fromFile(note.photoFilePath);
+//            IMAGE_URI = Uri.parse(note.photoFilePath);
+            imageNote = createImageNote(activity, note.photoFilePath);
             layout.addView(imageNote, 0);
         }
     }
@@ -89,10 +91,10 @@ public class ViewCreator {
      * creating ImageNote
      * and adds it to layout
      *
-     * @param activity  current
-     * @param photofile image of note
+     * @param activity      current
+     * @param photoFilePath image of note
      */
-    private ImageView createImageNote(final Activity activity, final File photofile) {
+    private ImageView createImageNote(final Activity activity, final String photoFilePath) {
         ImageView imageNote = new ImageView(activity);
 
         int width = IMAGE_WIDTH;
@@ -100,7 +102,7 @@ public class ViewCreator {
 
         //get preview from URI
         Bitmap bitmap = ThumbnailUtils.extractThumbnail(
-                BitmapFactory.decodeFile(photofile.getPath()), width, height);
+                BitmapFactory.decodeFile(photoFilePath), width, height);
 
         //set image to ImageView
         imageNote.setImageBitmap(bitmap);
@@ -225,9 +227,9 @@ public class ViewCreator {
      * textView: onClick shows editText view
      * all views: deleting onSwipeRight
      *
-     * @param view we are working with
+     * @param view     we are working with
      * @param activity we are working with
-     * @param flag of View type
+     * @param flag     of View type
      */
     public void setTouchListener(View view, final Activity activity, String flag) {
         //on swipe deletes note
