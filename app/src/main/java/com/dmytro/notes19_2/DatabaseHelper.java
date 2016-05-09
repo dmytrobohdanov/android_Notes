@@ -1,10 +1,14 @@
 package com.dmytro.notes19_2;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DataSaverSQLite extends SQLiteOpenHelper {
+/**
+ * //todo description
+ */
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     //name of DB
     private static final String DATABASE_NAME = "notesDataBase.db";
@@ -12,7 +16,7 @@ public class DataSaverSQLite extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     //name of table
-    private static final String DATABASE_TABLE = "notes";
+    public static final String DATABASE_TABLE = "notes";
 
     //columns
     public static final String NOTE_ID_COLUMN = "noteID";
@@ -27,13 +31,13 @@ public class DataSaverSQLite extends SQLiteOpenHelper {
     //scripts
     private static final String DATABASE_CREATE_SCRIPT = "create table "
             + DATABASE_TABLE + " ("
-            + NOTE_ID_COLUMN          + " integer,"
-            + NOTE_TEXT_COLUMN        + " text,"
-            + NOTE_COLOR_COLUMN       + " integer,"
-            + NOTE_PHOTO_PATH_COLUMN  + " text,"
-            + CREATION_DATE_COLUMN    + " integer,"
-            + LAST_UPDATE_DATE_COLUMN + " integer,"
-            + ARCHIVED_NOTE_COLUMN    + " integer);";
+            + NOTE_ID_COLUMN           + " integer,"
+            + NOTE_TEXT_COLUMN         + " text,"
+            + NOTE_COLOR_COLUMN        + " integer,"
+            + NOTE_PHOTO_PATH_COLUMN   + " text,"
+            + CREATION_DATE_COLUMN     + " integer,"
+            + LAST_UPDATE_DATE_COLUMN  + " integer,"
+            + ARCHIVED_NOTE_COLUMN     + " integer);";
 
 
     /**
@@ -41,7 +45,7 @@ public class DataSaverSQLite extends SQLiteOpenHelper {
      *
      * @param context activity
      */
-    public DataSaverSQLite(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -49,13 +53,14 @@ public class DataSaverSQLite extends SQLiteOpenHelper {
      * creator
      *
      * @param context activity
-     * @param name data base name
+     * @param name    data base name
      * @param factory cursor
      * @param version of DB
      */
-    public DataSaverSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
 
     /**
      * Creation of DB
@@ -69,8 +74,7 @@ public class DataSaverSQLite extends SQLiteOpenHelper {
 
 
     /**
-     *
-     * @param db database
+     * @param db         database
      * @param oldVersion of DB (id)
      * @param newVersion of DB (id)
      */

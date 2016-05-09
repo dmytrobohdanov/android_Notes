@@ -41,11 +41,11 @@ public class PhotoButtonHandler extends Activity {
      *
      * @param activity point to mainActivity
      */
-    PhotoButtonHandler(Activity activity, int photoButonId) {
-        this.idPhotoButton = photoButonId;
+    PhotoButtonHandler(Activity activity, int photoButtonId) {
+        this.idPhotoButton = photoButtonId;
         photoButton = (Button) activity.findViewById(idPhotoButton);///1
         this.mainActivity = activity;
-        this.notesKeeper = NotesKeeper.getInstance();
+        this.notesKeeper = NotesKeeper.getInstance(activity);
         Button photoButton = (Button) activity.findViewById(idPhotoButton);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        notesKeeper = NotesKeeper.getInstance();
+        notesKeeper = NotesKeeper.getInstance(this);
 
         ButtonsHandler textButton = new ButtonsHandler(this, R.id.addNoteByTextButton);
         ButtonsHandler voiceButton = new ButtonsHandler(this, R.id.addVoiceNoteButton);
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        notesKeeper = NotesKeeper.getInstance();
+        notesKeeper = NotesKeeper.getInstance(this);
         Note.drawNotes(this, notesKeeper.getAllNotes());
     }
 
@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        notesKeeper = NotesKeeper.getInstance();
+        notesKeeper = NotesKeeper.getInstance(this);
         Note.drawNotes(this, notesKeeper.getAllNotes());
     }
 
     @Override
     protected void onStop() {
-        notesKeeper.saveAllNotesToDisk();
+//        notesKeeper.saveAllNotesToDisk();
         super.onStop();
     }
 

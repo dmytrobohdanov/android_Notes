@@ -59,6 +59,22 @@ public class Note implements Serializable {
         setText(null);
     }
 
+    /**
+     * Constructor
+     * from DB
+     *
+     * @param id            of Note
+     * @param colorOfNote   of Note
+     * @param textOfNote    of Note
+     * @param photoFilePath of Note
+     */
+    public Note(int id, int colorOfNote, String textOfNote, String photoFilePath) {
+        this.id = id;
+        this.colorOfNote = colorOfNote;
+        this.textOfNote = textOfNote;
+        this.photoFilePath = photoFilePath;
+    }
+
 
     //public methods
 
@@ -87,6 +103,16 @@ public class Note implements Serializable {
      */
     public int getColor() {
         return colorOfNote;
+    }
+
+    /**
+     * returns path to photo of note
+     * of null if it's not a photo note
+     *
+     * @return path of photo
+     */
+    public String getPhotoPath() {
+        return photoFilePath;
     }
 
     //public static methods

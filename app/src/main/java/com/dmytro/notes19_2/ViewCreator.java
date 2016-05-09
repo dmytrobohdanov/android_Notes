@@ -186,6 +186,7 @@ public class ViewCreator {
                 if (!hasFocus) {
                     //todo write showTextView, handling situation when TextView is already shown
                     note.setText(editText.getText().toString());
+                    NotesKeeper.update(note);
                     textView.setText(note.getText());
                     vs.showPrevious();
                 }
@@ -267,6 +268,6 @@ public class ViewCreator {
      */
     private void deleteNote(Note note) {
         NotesKeeper.remove(note);
-        Note.drawNotes(activity, NotesKeeper.getInstance().getAllNotes());
+        Note.drawNotes(activity, NotesKeeper.getInstance(activity).getAllNotes());
     }
 }

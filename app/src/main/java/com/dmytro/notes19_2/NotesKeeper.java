@@ -1,15 +1,18 @@
 package com.dmytro.notes19_2;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class NotesKeeper {
     private static NotesKeeper instance;
     private static ArrayList<Note> notes;
+    private static DataSaverDB dataSaverDB;
 
-    private NotesKeeper() {
-        notes = DataSaver.loadSavedNotes();
+    private NotesKeeper(Context context) {
+        dataSaverDB = DataSaverDB.getInstance(context);
+        notes = dataSaverDB.getAllNotes();
     }
-
 
     //public methods
 
@@ -18,9 +21,9 @@ public class NotesKeeper {
      *
      * @return instance of NotesKeeper
      */
-    public static NotesKeeper getInstance() {
+    public static NotesKeeper getInstance(Context context) {
         if (instance == null) {
-            instance = new NotesKeeper();
+            instance = new NotesKeeper(context);
         }
         return instance;
     }
@@ -32,6 +35,7 @@ public class NotesKeeper {
      */
     public void add(Note note) {
         notes.add(note);
+        dataSaverDB.addNoteToDB(note);
     }
 
     /**
@@ -41,6 +45,7 @@ public class NotesKeeper {
      */
     public static void remove(Note note) {
         notes.remove(note);
+        dataSaverDB.deleteNote(note);
     }
 
     /**
@@ -52,10 +57,14 @@ public class NotesKeeper {
         return notes;
     }
 
-    /**
-     * Saving notes to disk
-     */
-    public void saveAllNotesToDisk() {
-        DataSaver.saveNotes(notes);
+    public static void update(Note note) {
+        dataSaverDB.updateNote(note);
     }
+
+//    /**
+//     * Saving notes to disk
+//     */
+//    public void saveAllNotesToDisk() {
+//        DataSaver.saveNotes(notes);
+//    }
 }

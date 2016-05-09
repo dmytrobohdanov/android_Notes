@@ -78,7 +78,7 @@ public class ButtonsHandler {
     }
 
     private void setTextButtonHandler(final Activity activity, int text_button_id) {
-        notesKeeper = NotesKeeper.getInstance();
+        notesKeeper = NotesKeeper.getInstance(activity);
         makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
 
         makeNewNote.setOnClickListener(new View.OnClickListener() {
