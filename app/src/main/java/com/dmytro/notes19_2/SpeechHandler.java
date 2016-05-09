@@ -40,7 +40,7 @@ public class SpeechHandler implements RecognitionListener {
      */
     public SpeechHandler(Activity activity) {
         this.activity = activity;
-        notesKeeper = NotesKeeper.getInstance();
+        notesKeeper = NotesKeeper.getInstance(activity);
     }
 
     //public methods:
