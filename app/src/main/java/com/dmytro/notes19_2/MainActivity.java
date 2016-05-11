@@ -1,5 +1,6 @@
 package com.dmytro.notes19_2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        photoButtonHandler.handleResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK) {
+            photoButtonHandler.handleResult(requestCode, resultCode, data);
+        }
     }
 }
 
