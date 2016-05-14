@@ -56,7 +56,6 @@ public class ViewCreator {
     private final int IMAGE_HEIGHT = 280;
 
 
-
     /**
      * Constructor of class
      * for text and voice notes
