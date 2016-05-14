@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
 //        notesKeeper.saveAllNotesToDisk();
+        ViewCreator.hideKeyboard(this);
         super.onStop();
     }
 
@@ -55,5 +56,6 @@ public class MainActivity extends AppCompatActivity {
             photoButtonHandler.handleResult(requestCode, resultCode, data);
         }
     }
+
 }
 
