@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import java.io.File;
+import java.net.URI;
+
 /**
  * ViewCreator
  * ask for note should be shown
@@ -240,6 +243,7 @@ public class ViewCreator {
                 public void onTapEvent() {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
 //                    intent.setDataAndType(IMAGE_URI, "image/*");
+                    intent.setDataAndType(Uri.fromFile(new File(note.getPhotoPath())), "image/*");
                     activity.startActivity(intent);
                 }
             });
