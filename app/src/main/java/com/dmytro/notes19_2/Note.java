@@ -30,7 +30,6 @@ public class Note implements Serializable {
     private String textOfNote;
 
     //for photo note
-//    File photoFile = null;
     String photoFilePath = null;
 
     /**
@@ -53,8 +52,6 @@ public class Note implements Serializable {
      */
     public Note(File photoFile) {
         setID();
-//        this.photoFile = photoFile;
-//        this.photoFilePath = photoFile.getAbsolutePath();
         this.photoFilePath = photoFile.getPath();
         setText(null);
     }
