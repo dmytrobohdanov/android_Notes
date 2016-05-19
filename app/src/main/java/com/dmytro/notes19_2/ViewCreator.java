@@ -128,8 +128,8 @@ public class ViewCreator {
     public void changeToEditText(Activity activity) {
         editText.setText(note.getText());
         vs.showNext();
-        editText.requestFocus();
         showKeyboard(activity);
+        editText.requestFocus();
         //todo: rewrite it: handle situation when vs.showNext() is null, i.e. vs is already shows EditText
     }
 

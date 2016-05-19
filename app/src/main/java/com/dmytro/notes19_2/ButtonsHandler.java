@@ -1,12 +1,14 @@
 package com.dmytro.notes19_2;
 
-
 import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Class responsible for buttons initialization
+ */
 public class ButtonsHandler {
     private Button makeNewNote;
     private Activity activity;
@@ -19,6 +21,14 @@ public class ButtonsHandler {
 
     NotesKeeper notesKeeper;
 
+    /**
+     * Constructor
+     * depends on button ID initialize button as
+     * text button, voice button or photo button
+     *
+     * @param activity that keeps button
+     * @param buttonId id of button
+     */
     ButtonsHandler(Activity activity, int buttonId) {
         this.activity = activity;
 
@@ -37,6 +47,12 @@ public class ButtonsHandler {
         }
     }
 
+    /**
+     * Initializing voice button actions
+     *
+     * @param activity activity
+     * @param voice_button_id id of voice button
+     */
     private void setVoiceButtonHandler(Activity activity, int voice_button_id) {
         speechHandler = new SpeechHandler(activity);
 
