@@ -11,7 +11,6 @@ import android.widget.Button;
  */
 public class ButtonsHandler {
     private Button makeNewNote;
-    private Activity activity;
     private SpeechHandler speechHandler;
     private PhotoButtonHandler photoHandler;
 
@@ -30,8 +29,6 @@ public class ButtonsHandler {
      * @param buttonId id of button
      */
     ButtonsHandler(Activity activity, int buttonId) {
-        this.activity = activity;
-
         switch (buttonId) {
             case TEXT_BUTTON_ID:
                 setTextButtonHandler(activity, TEXT_BUTTON_ID);
@@ -58,6 +55,7 @@ public class ButtonsHandler {
 
         makeNewNote = (Button) activity.findViewById(voice_button_id);
         assert makeNewNote != null;
+
         makeNewNote.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -72,16 +70,14 @@ public class ButtonsHandler {
     }
 
     /**
-     * onClick method of the id.startButton
-     * starting voice recognition
+     * start of listening for voice recognition
      */
     private void startSpeech() {
         speechHandler.startListening();
     }
 
     /**
-     * onUp method of the id.startButton
-     * stops listening
+     * stops listening speech
      */
     private void stopSpeech() {
         speechHandler.stopListening();
@@ -90,12 +86,12 @@ public class ButtonsHandler {
 
     private void setPhotoButtonHandler(Activity activity, int photo_button_id) {
         photoHandler = new PhotoButtonHandler(activity, photo_button_id);
-
     }
+
 
     private void setTextButtonHandler(final Activity activity, int text_button_id) {
         notesKeeper = NotesKeeper.getInstance(activity);
-        makeNewNote = (Button) activity.findViewById(R.id.addNoteByTextButton);
+        makeNewNote = (Button) activity.findViewById(text_button_id);
 
         makeNewNote.setOnClickListener(new View.OnClickListener() {
             /**
