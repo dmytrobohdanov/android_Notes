@@ -89,6 +89,12 @@ public class ButtonsHandler {
     }
 
 
+    /**
+     * Sets event onClick to TextButton
+     *
+     * @param activity which holds button
+     * @param text_button_id id of button listener have to be added to
+     */
     private void setTextButtonHandler(final Activity activity, int text_button_id) {
         notesKeeper = NotesKeeper.getInstance(activity);
         makeNewNote = (Button) activity.findViewById(text_button_id);
@@ -114,6 +120,9 @@ public class ButtonsHandler {
     }
 
     public PhotoButtonHandler getPhotoButtonHandlerInstance() {
+        //for now needs to pass instance of photoHandler to MainActivity
+        //so onActivityResult() after making photo can use methods of photoHandler
+        //without keeping it's instance in MainActivity during program running
         return photoHandler;
     }
 }
