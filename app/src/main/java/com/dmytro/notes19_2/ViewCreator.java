@@ -1,26 +1,22 @@
 package com.dmytro.notes19_2;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import java.io.File;
-import java.net.URI;
 
 /**
  * ViewCreator
@@ -281,5 +277,6 @@ public class ViewCreator {
     private void deleteNote(Note note) {
         NotesKeeper.remove(note);
         Note.drawNotes(activity, NotesKeeper.getInstance(activity).getAllNotes());
+        Toast.makeText(activity, "note deleted", Toast.LENGTH_SHORT).show();
     }
 }
